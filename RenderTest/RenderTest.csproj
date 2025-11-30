@@ -1,0 +1,98 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Output -->
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+
+    <!-- MonoGame desktop DX -->
+    <MonoGamePlatform>Windows</MonoGamePlatform>
+
+    <!-- Optional but useful for a classic MonoGame windowed app -->
+    <UseWindowsForms>true</UseWindowsForms>
+
+    <!-- Assembly / namespace -->
+    <RootNamespace>RenderTest</RootNamespace>
+    <AssemblyName>RenderTest</AssemblyName>
+
+    <!-- Old-style extras -->
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+
+    <!-- Keep implicit usings off so old code compiles as-is -->
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!-- Turn this on/off depending on how much you want nullable warnings -->
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Remove="app.manifest" />
+  </ItemGroup>
+
+  <!-- MonoGame 3.8.1 WindowsDX via NuGet -->
+
+  <!-- Content / assets -->
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+
+    <!-- PNG font pages -->
+    <Content Include="Content\Fonts\Lucida Console_14_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_15_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_32_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_32_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_64_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_64_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_64_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_64_3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_64_4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+
+    <!-- FNT files -->
+    <Content Include="Content\Fonts\Lucida Console_14.fnt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_15.fnt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_32.fnt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Fonts\PixelUnicode_64.fnt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+
+    <!-- Keep if you still have it in the folder; harmless -->
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
+  </ItemGroup>
+
+  <!-- Reference to your map editor project -->
+  <ItemGroup>
+    <ProjectReference Include="..\GE2D3D.MapEditor\GE2D3D.MapEditor.csproj">
+      <Project>{c723324b-e0fa-4f77-a616-f2b96f4c4198}</Project>
+      <Name>GE2D3D.MapEditor</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>

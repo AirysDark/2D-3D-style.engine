@@ -1,0 +1,148 @@
+﻿<UserControl x:Class="GE2D3D.MapEditor.Modules.SceneViewer.Views.SceneView"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="600">
+    <!-- Runtime DataContext is inherited from MainWindow (SceneViewModel) -->
+
+    <DockPanel>
+
+        <!-- ===========================
+             TOP TOOLBAR
+             =========================== -->
+        <ToolBar DockPanel.Dock="Top"
+                 Background="#FFFFFF">
+
+            <!-- UNDO / REDO -->
+            <Button Content="Undo"
+                    Margin="4,0,0,0"
+                    Command="{Binding UndoCommand}"
+                    IsEnabled="{Binding CanUndo}" />
+
+            <Button Content="Redo"
+                    Margin="2,0,0,0"
+                    Command="{Binding RedoCommand}"
+                    IsEnabled="{Binding CanRedo}" />
+
+            <Separator />
+
+            <!-- CAMERA PRESETS -->
+            <Button Content="Top"
+                    Margin="2"
+                    Click="OnCamPresetTop" />
+
+            <Button Content="Front"
+                    Margin="2"
+                    Click="OnCamPresetFront" />
+
+            <Button Content="Side"
+                    Margin="2"
+                    Click="OnCamPresetSide" />
+
+            <Button Content="Focus Selection"
+                    Margin="6,0,0,0"
+                    Click="OnFocusSelection" />
+
+            <Separator />
+
+            <Button Content="Reload Level"
+                    Margin="4"
+                    Click="OnReloadLevel" />
+
+            <Separator />
+
+            <!-- GRID SNAP -->
+            <CheckBox Content="Snap"
+                      Margin="8,0,0,0"
+                      VerticalAlignment="Center"
+                      IsChecked="{Binding UseGridSnap}" />
+
+            <TextBlock Text="Grid"
+                       Margin="6,0,0,0"
+                       VerticalAlignment="Center" />
+
+            <TextBox Width="40"
+                     Margin="2,0,0,0"
+                     VerticalAlignment="Center"
+                     Text="{Binding GridSize,
+                                    UpdateSourceTrigger=PropertyChanged}" />
+
+            <ComboBox Width="60"
+                      Margin="4,0,0,0"
+                      VerticalAlignment="Center"
+                      SelectedValuePath="Content"
+                      SelectedValue="{Binding GridSize,
+                                              Mode=TwoWay,
+                                              UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="0.25" />
+                <ComboBoxItem Content="0.5" />
+                <ComboBoxItem Content="1.0" />
+            </ComboBox>
+
+            <Separator />
+            <TextBlock Text="RotSnap"
+                       Margin="6,0,0,0"
+                       VerticalAlignment="Center" />
+
+            <CheckBox Margin="2,0,0,0"
+                      VerticalAlignment="Center"
+                      IsChecked="{Binding RotationSnapEnabled}" />
+
+            <TextBox Width="40"
+                     Margin="2,0,0,0"
+                     VerticalAlignment="Center"
+                     Text="{Binding RotationSnapStep,
+                                    Mode=TwoWay,
+                                    UpdateSourceTrigger=PropertyChanged}" />
+
+            <ComboBox Width="60"
+                      Margin="4,0,0,0"
+                      VerticalAlignment="Center"
+                      SelectedValuePath="Content"
+                      SelectedValue="{Binding RotationSnapStep,
+                                              Mode=TwoWay,
+                                              UpdateSourceTrigger=PropertyChanged}">
+                <ComboBoxItem Content="5" />
+                <ComboBoxItem Content="15" />
+                <ComboBoxItem Content="30" />
+                <ComboBoxItem Content="45" />
+                <ComboBoxItem Content="90" />
+            </ComboBox>
+
+            <Separator />
+
+        </ToolBar>
+
+        <!-- ===========================
+             ASSET / PREFAB BROWSER (MOVED)
+             =========================== -->
+        <!-- Assets panel moved to floating tool window (Toolbox ? Assets) -->
+
+        <!-- ===========================
+             ENTITIES LIST PANEL
+             =========================== -->
+        <!-- Entities panel moved to floating tool window (Toolbox menu) -->
+
+        <!-- ===========================
+             SELECTION / INSPECTOR PANEL
+             =========================== -->
+        <!-- Selection panel moved to floating tool window (Toolbox menu) -->
+
+        <!-- ===========================
+             CAMERA PATH PANEL
+             =========================== -->
+        <!-- Camera Path panel moved to floating tool window (Toolbox menu) -->
+
+        <!-- ===========================
+             MONOGAME HOST GRID
+             =========================== -->
+        <Grid x:Name="GameHost"
+              Background="#FFFFFF"
+              Focusable="True" />
+    </DockPanel>
+
+</UserControl>

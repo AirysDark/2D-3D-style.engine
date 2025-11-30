@@ -1,0 +1,233 @@
+<Window x:Class="GE2D3D.MapEditor.Modules.SceneViewer.Views.SelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Selection Inspector"
+        Width="360"
+        Height="520"
+        WindowStartupLocation="CenterOwner">
+    <Border Padding="4"
+                    BorderThickness="1"
+                    BorderBrush="#333333"
+                    Margin="0,0,0,2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+
+                        <!-- Identity group -->
+                        <Expander Header="Identity" IsExpanded="True" Margin="0,0,0,4">
+                            <Grid Margin="0,4,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Margin="0,0,4,0"
+                                           Text="ID:" />
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="{Binding SelectedEntityId}" />
+
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="0"
+                                           Margin="0,2,4,0"
+                                           Text="Numeric ID:" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{Binding SelectedEntityNumericId}" />
+
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="0"
+                                           Margin="0,2,4,0"
+                                           Text="Kind:" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="1"
+                                           Text="{Binding SelectedEntityKind}" />
+                            </Grid>
+                        </Expander>
+
+                        <!-- Transform group -->
+                        <Expander Header="Transform" IsExpanded="True" Margin="0,0,0,4">
+                            <StackPanel Margin="0,4,0,0">
+
+                                <!-- Position -->
+                                <TextBlock Text="Position:"
+                                           Margin="0,0,0,2" />
+                                <TextBlock Text="{Binding SelectedEntityPosition}"
+                                           Margin="0,0,0,4" />
+
+                                <UniformGrid Columns="3" Margin="0,0,0,4">
+                                    <StackPanel Margin="0,0,2,0">
+                                        <TextBlock Text="X"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBox Text="{Binding SelectedEntityPosX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="0,1,0,0"
+                                                 MinWidth="60" />
+                                    </StackPanel>
+                                    <StackPanel Margin="2,0,2,0">
+                                        <TextBlock Text="Y"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBox Text="{Binding SelectedEntityPosY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="0,1,0,0"
+                                                 MinWidth="60" />
+                                    </StackPanel>
+                                    <StackPanel Margin="2,0,0,0">
+                                        <TextBlock Text="Z"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBox Text="{Binding SelectedEntityPosZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="0,1,0,0"
+                                                 MinWidth="60" />
+                                    </StackPanel>
+                                </UniformGrid>
+
+                                <!-- Size -->
+                                <TextBlock Text="Size:"
+                                           Margin="0,4,0,2" />
+                                <TextBlock Text="{Binding SelectedEntitySize}"
+                                           Margin="0,0,0,4" />
+
+                                <UniformGrid Columns="3" Margin="0,0,0,4">
+                                    <StackPanel Margin="0,0,2,0">
+                                        <TextBlock Text="X"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBox Text="{Binding SelectedEntitySizeX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="0,1,0,0"
+                                                 MinWidth="60" />
+                                    </StackPanel>
+                                    <StackPanel Margin="2,0,2,0">
+                                        <TextBlock Text="Y"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBox Text="{Binding SelectedEntitySizeY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="0,1,0,0"
+                                                 MinWidth="60" />
+                                    </StackPanel>
+                                    <StackPanel Margin="2,0,0,0">
+                                        <TextBlock Text="Z"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBox Text="{Binding SelectedEntitySizeZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="0,1,0,0"
+                                                 MinWidth="60" />
+                                    </StackPanel>
+                                </UniformGrid>
+
+                                <!-- Rotation -->
+                                <TextBlock Text="Rotation:"
+                                           Margin="0,4,0,2" />
+                                <TextBlock Text="{Binding SelectedEntityRotation}"
+                                           Margin="0,0,0,4" />
+
+                                <UniformGrid Columns="3" Margin="0,0,0,4">
+                                    <StackPanel Margin="0,0,2,0">
+                                        <TextBlock Text="X (Pitch)"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBox Text="{Binding SelectedEntityRotX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="0,1,0,0"
+                                                 MinWidth="60" />
+                                    </StackPanel>
+                                    <StackPanel Margin="2,0,2,0">
+                                        <TextBlock Text="Y (Yaw)"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBox Text="{Binding SelectedEntityRotY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="0,1,0,0"
+                                                 MinWidth="60" />
+                                    </StackPanel>
+                                    <StackPanel Margin="2,0,0,0">
+                                        <TextBlock Text="Z (Roll)"
+                                                   FontSize="10"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBox Text="{Binding SelectedEntityRotZ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Margin="0,1,0,0"
+                                                 MinWidth="60" />
+                                    </StackPanel>
+                                </UniformGrid>
+
+                                <!-- Transform buttons -->
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,4,0,0">
+                                    <Button Padding="4,2"
+                                            HorizontalAlignment="Left"
+                                            Content="Focus Camera"
+                                            Command="{Binding FocusSelectionCommand}" />
+                                    <Button Padding="4,2"
+                                            Margin="8,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Content="Apply Position"
+                                            Command="{Binding ApplySelectionPositionCommand}" />
+                                    <Button Padding="4,2"
+                                            Margin="8,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Content="Apply Size"
+                                            Command="{Binding ApplySelectionSizeCommand}" />
+                                    <Button Padding="4,2"
+                                            Margin="8,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Content="Apply Rotation"
+                                            Command="{Binding ApplySelectionRotationCommand}" />
+                                    <Button Padding="4,2"
+                                            Margin="8,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Content="Reset Size"
+                                            Command="{Binding ResetSelectionSizeCommand}" />
+                                </StackPanel>
+
+                            </StackPanel>
+                        </Expander>
+
+                        <!-- Light group -->
+                        <Expander Header="Light" IsExpanded="False">
+                            <StackPanel Margin="0,4,0,0">
+                                <TextBlock Text="Light Settings (for Light entities):"
+                                           FontWeight="Bold"
+                                           Margin="0,0,0,2" />
+
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,0,0,2">
+                                    <TextBlock Margin="0,0,2,0" Text="Color RGB:" />
+                                    <TextBlock Margin="4,0,2,0" Text="R" />
+                                    <TextBox Width="40"
+                                             Margin="0,0,4,0"
+                                             Text="{Binding SelectedLightColorR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Margin="0,0,2,0" Text="G" />
+                                    <TextBox Width="40"
+                                             Margin="0,0,4,0"
+                                             Text="{Binding SelectedLightColorG, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Margin="0,0,2,0" Text="B" />
+                                    <TextBox Width="40"
+                                             Text="{Binding SelectedLightColorB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,4,0" Text="Radius:" />
+                                    <TextBox Width="60"
+                                             Margin="0,0,4,0"
+                                             Text="{Binding SelectedLightRadius, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Margin="0,0,4,0" Text="(stored as uniform Size XYZ)" />
+                                    <Button Padding="4,2"
+                                            Margin="12,0,0,0"
+                                            Content="Apply Light"
+                                            Command="{Binding ApplySelectionLightCommand}" />
+                                    <Button Padding="4,2"
+                                            Margin="4,0,0,0"
+                                            Content="Reset Light"
+                                            Command="{Binding ResetSelectionLightCommand}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+</Window>

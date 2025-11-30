@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <AssemblyName>P3D-Legacy-MapEditor</AssemblyName>
+    <RootNamespace>P3D.Legacy.MapEditor</RootNamespace>
+  </PropertyGroup>
+
+  <!-- NuGet Packages -->
+  <ItemGroup>
+    <!-- UI & MVVM -->
+    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
+    <PackageReference Include="ControlzEx" Version="5.0.2" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+    <PackageReference Include="GeminiWpf" Version="1.0.6131" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.11" />
+
+    <!-- Utilities -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+
+    <!-- MonoGame -->
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
+    <PackageReference Include="Xceed.Wpf.Toolkit" Version="5.1.25458.6678" />
+
+  </ItemGroup>
+
+  <!-- Project reference to your new .NET 6 Gemini D3D module -->
+  <ItemGroup>
+    <ProjectReference Include="..\Gemini.Modules.D3D\Gemini.Modules.D3D.csproj" />
+  </ItemGroup>
+
+  <!-- Resources and content -->
+  <ItemGroup>
+    <Content Include="Content\Fonts\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Effect\Resources\**\*.*" />
+  </ItemGroup>
+
+  <!-- XAML pages -->
+  <ItemGroup>
+    <Page Include="Modules\SceneViewer\Views\SceneView.xaml" />
+    <Page Include="Modules\SceneViewer\Inspectors\FloatEditorView.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Gemini">
+      <HintPath>..\package\GeminiWpf.1.0.6131\lib\net461\Gemini.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

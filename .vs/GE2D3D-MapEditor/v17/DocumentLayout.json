@@ -1,0 +1,975 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\modules\\sceneviewer\\views\\sceneview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\modules\\sceneviewer\\views\\sceneview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\modules\\sceneviewer\\views\\assetswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\modules\\sceneviewer\\views\\assetswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\modules\\sceneviewer\\views\\assetswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\modules\\sceneviewer\\views\\assetswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\modules\\sceneviewer\\views\\sceneview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\modules\\sceneviewer\\views\\sceneview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\modules\\sceneviewer\\viewmodels\\sceneviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\modules\\sceneviewer\\viewmodels\\sceneviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\debug\\debugvolumebatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\debug\\debugvolumebatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\gizmo\\transformgizmo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\gizmo\\transformgizmo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\render\\render.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\render\\render.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\world\\level.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\world\\level.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\renderbootstrap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\renderbootstrap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\camera\\camerapathrecorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\camera\\camerapathrecorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\render\\editorrendersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\render\\editorrendersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\render\\directionallightsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\render\\directionallightsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\world\\layervisibility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\world\\layervisibility.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C0E7D23-3691-4A7C-99AF-DE9BBC199508}|RenderTest\\RenderTest.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\rendertest\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C0E7D23-3691-4A7C-99AF-DE9BBC199508}|RenderTest\\RenderTest.csproj|solutionrelative:rendertest\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\world\\drawlayers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\world\\drawlayers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\utils\\wireprimitives.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\utils\\wireprimitives.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AirysDark\\AppData\\Local\\Temp\\.vsdbgsrc\\d498bf5cbf016a5efdb400a121800957635e0d0b034e73e35cb6157ee74399c0\\ResourcePart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\modelselector\\modelselectordefault.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\modelselector\\modelselectordefault.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\world\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\world\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\camera\\editorcameracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\camera\\editorcameracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\modelselector\\basemodelselector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\modelselector\\basemodelselector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\utils\\levelloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\utils\\levelloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\prism.modules.d3d\\overlays\\gridsnap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|solutionrelative:prism.modules.d3d\\overlays\\gridsnap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\prism.modules.d3d\\overlays\\gridrenderlayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|solutionrelative:prism.modules.d3d\\overlays\\gridrenderlayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\input\\editorinputsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\input\\editorinputsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\render\\skyboxrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\render\\skyboxrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C0E7D23-3691-4A7C-99AF-DE9BBC199508}|RenderTest\\RenderTest.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\rendertest\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{2C0E7D23-3691-4A7C-99AF-DE9BBC199508}|RenderTest\\RenderTest.csproj|solutionrelative:rendertest\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\camera\\basecamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\camera\\basecamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\camera\\camera3dmonogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\camera\\camera3dmonogame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\components\\camera\\camera3dprism.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\components\\camera\\camera3dprism.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\prism.modules.d3d\\settings\\rendersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|solutionrelative:prism.modules.d3d\\settings\\rendersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\oak\\prism.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\oak\\prism.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\bmfont\\xmlfontinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\bmfont\\xmlfontinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\prism.modules.d3d\\controls\\based3d9drawingsurface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|solutionrelative:prism.modules.d3d\\controls\\based3d9drawingsurface.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C0E7D23-3691-4A7C-99AF-DE9BBC199508}|RenderTest\\RenderTest.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\rendertest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C0E7D23-3691-4A7C-99AF-DE9BBC199508}|RenderTest\\RenderTest.csproj|solutionrelative:rendertest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\RenderTest\\obj\\Debug\\net6.0-windows\\RenderTest.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C0E7D23-3691-4A7C-99AF-DE9BBC199508}|RenderTest\\RenderTest.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\rendertest\\rendertest.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{2C0E7D23-3691-4A7C-99AF-DE9BBC199508}|RenderTest\\RenderTest.csproj|solutionrelative:rendertest\\rendertest.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\utils\\texturehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\utils\\texturehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\data\\vertices\\vertexpositionnormalcolortexture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\data\\vertices\\vertexpositionnormalcolortexture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\bmfont\\xmlfontpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\bmfont\\xmlfontpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\bmfont\\fontfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\bmfont\\fontfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\bmfont\\xmlfontfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\bmfont\\xmlfontfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\oak\\prisminfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\oak\\prisminfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\modules\\sceneviewer\\monogame\\graphicsdeviceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\modules\\sceneviewer\\monogame\\graphicsdeviceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\data\\entityinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\data\\entityinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\modules\\sceneviewer\\inspectors\\floateditorview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\modules\\sceneviewer\\inspectors\\floateditorview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\ge2d3d.mapeditor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\ge2d3d.mapeditor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\prism.modules.d3d\\prism.modules.d3d.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{65977C0D-F53B-7879-80A9-C1EC37C174CA}|Prism.Modules.D3D\\Prism.Modules.D3D.csproj|solutionrelative:prism.modules.d3d\\prism.modules.d3d.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\ge2d3d.mapeditor.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\ge2d3d.mapeditor.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\MainWindow.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\Modules\\SceneViewer\\Views\\SceneView.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|c:\\users\\airysdark\\source\\ge2d3d-mapeditor\\ge2d3d.mapeditor\\properties\\resources.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F54A9AB7-31A2-70CA-F36B-B74F4077D2DE}|GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj|solutionrelative:ge2d3d.mapeditor\\properties\\resources.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AirysDark\\source\\repos\\P3D-MapEditor\\2D3D.MapEditor\\GE2D3D.MapEditor.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SceneViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\ViewModels\\SceneViewModel.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Modules\\SceneViewer\\ViewModels\\SceneViewModel.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\ViewModels\\SceneViewModel.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Modules\\SceneViewer\\ViewModels\\SceneViewModel.cs",
+              "ViewState": "AgIAAJsGAAAAAAAAAAAAAGIGAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T12:54:26.596Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AssetsWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\AssetsWindow.xaml.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\AssetsWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\AssetsWindow.xaml.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\AssetsWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T10:53:55.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AssetsWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\AssetsWindow.xaml",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\AssetsWindow.xaml",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\AssetsWindow.xaml",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\AssetsWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-30T10:53:01.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\MainWindow.xaml",
+              "RelativeToolTip": "GE2D3D.MapEditor\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-27T06:20:46.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Level.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\World\\Level.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\World\\Level.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\World\\Level.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\World\\Level.cs",
+              "ViewState": "AgIAAAoCAAAAAAAAAAAAAA4CAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T10:53:45.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SceneView.xaml",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\SceneView.xaml",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\SceneView.xaml",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\SceneView.xaml",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\SceneView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-27T06:12:51.345Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TransformGizmo.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Gizmo\\TransformGizmo.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Gizmo\\TransformGizmo.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Gizmo\\TransformGizmo.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Gizmo\\TransformGizmo.cs",
+              "ViewState": "AgIAACcDAAAAAAAAAAAqwEoDAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T10:09:01.57Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DebugVolumeBatch.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Debug\\DebugVolumeBatch.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Debug\\DebugVolumeBatch.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Debug\\DebugVolumeBatch.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Debug\\DebugVolumeBatch.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAqwGMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T16:11:51.587Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\MainWindow.xaml.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAqwIMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T14:16:59.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SceneView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\SceneView.xaml.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\SceneView.xaml.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\SceneView.xaml.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Views\\SceneView.xaml.cs",
+              "ViewState": "AgIAAAoBAAAAAAAAAAAqwC0BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:22:16.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "RenderBootstrap.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\RenderBootstrap.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\RenderBootstrap.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\RenderBootstrap.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\RenderBootstrap.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:00:34.495Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\App.xaml.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\App.xaml.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\App.xaml.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAqwEEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:09:53.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "DirectionalLightSettings.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Render\\DirectionalLightSettings.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Render\\DirectionalLightSettings.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Render\\DirectionalLightSettings.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Render\\DirectionalLightSettings.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAqwCgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T17:16:05.712Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Render.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Render\\Render.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Render\\Render.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Render\\Render.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Render\\Render.cs",
+              "ViewState": "AgIAAE8BAAAAAAAAAAAawGEBAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:50:33.428Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CameraPathRecorder.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\CameraPathRecorder.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Camera\\CameraPathRecorder.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\CameraPathRecorder.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Camera\\CameraPathRecorder.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAuwH8AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T10:12:07.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "EditorRenderSettings.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Render\\EditorRenderSettings.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Render\\EditorRenderSettings.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Render\\EditorRenderSettings.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Render\\EditorRenderSettings.cs",
+              "ViewState": "AgIAAEoBAAAAAAAAAAAqwG0BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T10:06:32.929Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "LayerVisibility.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\World\\LayerVisibility.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\World\\LayerVisibility.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\World\\LayerVisibility.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\World\\LayerVisibility.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAqwCUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T16:10:55.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\App.xaml",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\App.xaml",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\App.xaml",
+              "RelativeToolTip": "GE2D3D.MapEditor\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-27T13:08:16.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Game1.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\RenderTest\\Game1.cs",
+              "RelativeDocumentMoniker": "RenderTest\\Game1.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\RenderTest\\Game1.cs",
+              "RelativeToolTip": "RenderTest\\Game1.cs",
+              "ViewState": "AgIAAJoAAAAAAAAAAAAqwL0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:35:36.224Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ModelSelectorDefault.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\ModelSelector\\ModelSelectorDefault.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\ModelSelector\\ModelSelectorDefault.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\ModelSelector\\ModelSelectorDefault.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\ModelSelector\\ModelSelectorDefault.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAqwGQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:34:43.14Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "WirePrimitives.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Utils\\WirePrimitives.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Utils\\WirePrimitives.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Utils\\WirePrimitives.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Utils\\WirePrimitives.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAqwDQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:37:32.674Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "DrawLayers.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\World\\DrawLayers.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\World\\DrawLayers.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\World\\DrawLayers.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\World\\DrawLayers.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T13:38:22.322Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "LevelLoader.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Utils\\LevelLoader.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Utils\\LevelLoader.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Utils\\LevelLoader.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Utils\\LevelLoader.cs",
+              "ViewState": "AgIAAIwBAAAAAAAAAAAqwLABAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:49:38.383Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "EditorCameraController.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\EditorCameraController.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Camera\\EditorCameraController.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\EditorCameraController.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Camera\\EditorCameraController.cs",
+              "ViewState": "AgIAACEBAAAAAAAAAAAqwEQBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:01:52.321Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ResourcePart.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\AppData\\Local\\Temp\\.vsdbgsrc\\d498bf5cbf016a5efdb400a121800957635e0d0b034e73e35cb6157ee74399c0\\ResourcePart.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\d498bf5cbf016a5efdb400a121800957635e0d0b034e73e35cb6157ee74399c0\\ResourcePart.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\AppData\\Local\\Temp\\.vsdbgsrc\\d498bf5cbf016a5efdb400a121800957635e0d0b034e73e35cb6157ee74399c0\\ResourcePart.cs",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\d498bf5cbf016a5efdb400a121800957635e0d0b034e73e35cb6157ee74399c0\\ResourcePart.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAqwFoAAAAAAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T11:38:51.566Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Entity.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\World\\Entity.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\World\\Entity.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\World\\Entity.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\World\\Entity.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAqwDcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T12:06:50.176Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "BaseModelSelector.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\ModelSelector\\BaseModelSelector.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\ModelSelector\\BaseModelSelector.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\ModelSelector\\BaseModelSelector.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\ModelSelector\\BaseModelSelector.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAqwG8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T12:31:17.008Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "GridSnap.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Overlays\\GridSnap.cs",
+              "RelativeDocumentMoniker": "Prism.Modules.D3D\\Overlays\\GridSnap.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Overlays\\GridSnap.cs",
+              "RelativeToolTip": "Prism.Modules.D3D\\Overlays\\GridSnap.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T11:52:53.389Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "EditorInputSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\input\\EditorInputSnapshot.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\input\\EditorInputSnapshot.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\input\\EditorInputSnapshot.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\input\\EditorInputSnapshot.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAqwEcAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T10:07:48.118Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "SkyboxRenderer.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Render\\SkyboxRenderer.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Render\\SkyboxRenderer.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Render\\SkyboxRenderer.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Render\\SkyboxRenderer.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAqwH4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T10:10:58.558Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "GridRenderLayer.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Overlays\\GridRenderLayer.cs",
+              "RelativeDocumentMoniker": "Prism.Modules.D3D\\Overlays\\GridRenderLayer.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Overlays\\GridRenderLayer.cs",
+              "RelativeToolTip": "Prism.Modules.D3D\\Overlays\\GridRenderLayer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T11:51:48.289Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "app.manifest",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\RenderTest\\app.manifest",
+              "RelativeDocumentMoniker": "RenderTest\\app.manifest",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\RenderTest\\app.manifest",
+              "RelativeToolTip": "RenderTest\\app.manifest",
+              "ViewState": "AgIAABIAAAAAAAAAAAAxwCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001203|",
+              "WhenOpened": "2025-11-27T07:41:49.707Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Camera3DMonoGame.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\Camera3DMonoGame.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Camera\\Camera3DMonoGame.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\Camera3DMonoGame.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Camera\\Camera3DMonoGame.cs",
+              "ViewState": "AgIAABABAAAAAAAAAAAqwBcBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:06:11.001Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "BaseD3D9DrawingSurface.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Controls\\BaseD3D9DrawingSurface.cs",
+              "RelativeDocumentMoniker": "Prism.Modules.D3D\\Controls\\BaseD3D9DrawingSurface.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Controls\\BaseD3D9DrawingSurface.cs",
+              "RelativeToolTip": "Prism.Modules.D3D\\Controls\\BaseD3D9DrawingSurface.cs",
+              "ViewState": "AgIAAIkAAAAAAAAAAAAuwJkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:54:58.976Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "BaseCamera.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\BaseCamera.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Camera\\BaseCamera.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\BaseCamera.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Camera\\BaseCamera.cs",
+              "ViewState": "AgIAAF0BAAAAAAAAAAAqwDACAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:03:24.681Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "RenderSettings.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Settings\\RenderSettings.cs",
+              "RelativeDocumentMoniker": "Prism.Modules.D3D\\Settings\\RenderSettings.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Settings\\RenderSettings.cs",
+              "RelativeToolTip": "Prism.Modules.D3D\\Settings\\RenderSettings.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAABBwAcAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:56:41.95Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Camera3DPrism.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\Camera3DPrism.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Components\\Camera\\Camera3DPrism.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Components\\Camera\\Camera3DPrism.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Components\\Camera\\Camera3DPrism.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T08:07:46.414Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "XmlFontInfo.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\BMFont\\XmlFontInfo.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\BMFont\\XmlFontInfo.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\BMFont\\XmlFontInfo.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\BMFont\\XmlFontInfo.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAuwEMAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:02:00.492Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Prism.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Oak\\Prism.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Oak\\Prism.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Oak\\Prism.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Oak\\Prism.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAABBwDcAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:48:18.221Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\RenderTest\\Program.cs",
+              "RelativeDocumentMoniker": "RenderTest\\Program.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\RenderTest\\Program.cs",
+              "RelativeToolTip": "RenderTest\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:43:52.428Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "RenderTest.AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\RenderTest\\obj\\Debug\\net6.0-windows\\RenderTest.AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "..\\repos\\GE2D3D-MapEditor\\RenderTest\\obj\\Debug\\net6.0-windows\\RenderTest.AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\RenderTest\\obj\\Debug\\net6.0-windows\\RenderTest.AssemblyInfo.cs",
+              "RelativeToolTip": "..\\repos\\GE2D3D-MapEditor\\RenderTest\\obj\\Debug\\net6.0-windows\\RenderTest.AssemblyInfo.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:39:08.442Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "RenderTest.csproj",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\RenderTest\\RenderTest.csproj",
+              "RelativeDocumentMoniker": "RenderTest\\RenderTest.csproj",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\RenderTest\\RenderTest.csproj",
+              "RelativeToolTip": "RenderTest\\RenderTest.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-27T07:27:06.991Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "..\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml",
+              "RelativeToolTip": "..\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-27T07:11:18.854Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "..\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml.cs",
+              "RelativeToolTip": "..\\repos\\GE2D3D-MapEditor\\RenderTest\\MainWindow.xaml.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:11:16.133Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "TextureHandler.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Utils\\TextureHandler.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Utils\\TextureHandler.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Utils\\TextureHandler.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Utils\\TextureHandler.cs",
+              "ViewState": "AgIAAPsAAAAAAAAAAAAqwB4BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:07:24.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "VertexPositionNormalColorTexture.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Data\\Vertices\\VertexPositionNormalColorTexture.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Data\\Vertices\\VertexPositionNormalColorTexture.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Data\\Vertices\\VertexPositionNormalColorTexture.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Data\\Vertices\\VertexPositionNormalColorTexture.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAqwEIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:06:20.837Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "FontFile.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\BMFont\\FontFile.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\BMFont\\FontFile.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\BMFont\\FontFile.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\BMFont\\FontFile.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAqwEMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:03:36.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "XmlFontPage.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\BMFont\\XmlFontPage.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\BMFont\\XmlFontPage.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\BMFont\\XmlFontPage.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\BMFont\\XmlFontPage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T07:01:33.246Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "XmlFontFile.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\BMFont\\XmlFontFile.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\BMFont\\XmlFontFile.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\BMFont\\XmlFontFile.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\BMFont\\XmlFontFile.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAqwCQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:59:32.457Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "PrismInfo.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Oak\\PrismInfo.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Oak\\PrismInfo.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Oak\\PrismInfo.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Oak\\PrismInfo.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAqwHQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:57:48.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "GraphicsDeviceService.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\MonoGame\\GraphicsDeviceService.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Modules\\SceneViewer\\MonoGame\\GraphicsDeviceService.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\MonoGame\\GraphicsDeviceService.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Modules\\SceneViewer\\MonoGame\\GraphicsDeviceService.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAawDoAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:47:32.751Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "EntityInfo.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Data\\EntityInfo.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Data\\EntityInfo.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Data\\EntityInfo.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Data\\EntityInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:47:20.506Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "GE2D3D.MapEditor.csproj",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "RelativeToolTip": "GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-27T06:36:49.543Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "Prism.Modules.D3D",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Prism.Modules.D3D.csproj",
+              "RelativeDocumentMoniker": "Prism.Modules.D3D\\Prism.Modules.D3D.csproj",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\Prism.Modules.D3D\\Prism.Modules.D3D.csproj",
+              "RelativeToolTip": "Prism.Modules.D3D\\Prism.Modules.D3D.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-27T06:33:36.556Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "FloatEditorView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Inspectors\\FloatEditorView.xaml.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Inspectors\\FloatEditorView.xaml.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Modules\\SceneViewer\\Inspectors\\FloatEditorView.xaml.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Modules\\SceneViewer\\Inspectors\\FloatEditorView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:25:53.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "MainWindow.g.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\MainWindow.g.cs",
+              "RelativeDocumentMoniker": "..\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\MainWindow.g.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\MainWindow.g.cs",
+              "RelativeToolTip": "..\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\MainWindow.g.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:20:20.612Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "SceneView.g.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\Modules\\SceneViewer\\Views\\SceneView.g.cs",
+              "RelativeDocumentMoniker": "..\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\Modules\\SceneViewer\\Views\\SceneView.g.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\Modules\\SceneViewer\\Views\\SceneView.g.cs",
+              "RelativeToolTip": "..\\repos\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\obj\\Debug\\net6.0-windows\\Modules\\SceneViewer\\Views\\SceneView.g.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:14:22.742Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "Resources.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Properties\\Resources.Designer.cs",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\Properties\\Resources.Designer.cs",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\Properties\\Resources.Designer.cs",
+              "RelativeToolTip": "GE2D3D.MapEditor\\Properties\\Resources.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T06:11:39.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "GE2D3D.MapEditor",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "RelativeDocumentMoniker": "GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "RelativeToolTip": "GE2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-27T06:11:01.656Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "GE2D3D.MapEditor.csproj",
+              "DocumentMoniker": "C:\\Users\\AirysDark\\source\\repos\\P3D-MapEditor\\2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "RelativeDocumentMoniker": "..\\repos\\P3D-MapEditor\\2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "ToolTip": "C:\\Users\\AirysDark\\source\\repos\\P3D-MapEditor\\2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "RelativeToolTip": "..\\repos\\P3D-MapEditor\\2D3D.MapEditor\\GE2D3D.MapEditor.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-27T06:04:38.473Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
