@@ -1,18 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
 
     <AssemblyName>GE2D3D.EditorSuite</AssemblyName>
     <RootNamespace>GE2D3D.EditorSuite</RootNamespace>
-
-    <!-- Let MSBuild use the default:
-         GE2D3D.EditorSuite\bin\$(Configuration)\ -->
-    <Nullable>disable</Nullable>
+    <ApplicationIcon></ApplicationIcon>
   </PropertyGroup>
 
-  <!-- Tell this project "you depend on these three" -->
   <ItemGroup>
     <ProjectReference Include="..\GE2D3D.MapEditor\GE2D3D.MapEditor.csproj" />
     <ProjectReference Include="..\RenderTest\RenderTest.csproj" />
