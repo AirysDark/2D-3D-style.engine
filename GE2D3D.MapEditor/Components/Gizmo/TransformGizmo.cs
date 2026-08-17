@@ -30,13 +30,6 @@ namespace GE2D3D.MapEditor.Components.Gizmo
 
         private const float AxisHitThresholdPixels = 10f;
 
-        // Last computed view-space depth per axis (used for depth-aware picking & debug)
-        // Larger value = farther from camera (since we store positive distance along view direction).
-        private float _axisDepthX;
-        private float _axisDepthY;
-        private float _axisDepthZ;
-
-
         private readonly GraphicsDevice _graphicsDevice;
         private readonly BaseCamera _camera;
         private readonly EditorRenderSettings _settings;
@@ -563,69 +556,45 @@ namespace GE2D3D.MapEditor.Components.Gizmo
         // HIT TEST: TRANSLATION AXES
         // ------------------------------------------------------------
 
-
-        private GizmoAxis HitTestAxis(Point mouse, Vector3 centerWorld, float size)
+        private GizmoAxis HitTestAxis(Point mouse, Vector3 center, float size)
         {
             var viewport = _graphicsDevice.Viewport;
+            var centerScreen = viewport.Project(center, _camera.ProjectionMatrix, _camera.ViewMatrix, Matrix.Identity);
             var mousePos = mouse.ToVector2();
-
-            // Build axis endpoints in world space
-            Vector3 axisEndX = centerWorld + Vector3.Right * size;
-            Vector3 axisEndY = centerWorld + Vector3.Up * size;
-            Vector3 axisEndZ = centerWorld + Vector3.Backward * size;
-
-            // Project to screen space
-            var centerScreen = viewport.Project(centerWorld, _camera.ProjectionMatrix, _camera.ViewMatrix, Matrix.Identity);
-            var endXScreen = viewport.Project(axisEndX, _camera.ProjectionMatrix, _camera.ViewMatrix, Matrix.Identity);
-            var endYScreen = viewport.Project(axisEndY, _camera.ProjectionMatrix, _camera.ViewMatrix, Matrix.Identity);
-            var endZScreen = viewport.Project(axisEndZ, _camera.ProjectionMatrix, _camera.ViewMatrix, Matrix.Identity);
-
             var centerPos = new Vector2(centerScreen.X, centerScreen.Y);
-            var endXPos = new Vector2(endXScreen.X, endXScreen.Y);
-            var endYPos = new Vector2(endYScreen.X, endYScreen.Y);
-            var endZPos = new Vector2(endZScreen.X, endZScreen.Y);
 
-            // Compute view-space depth for each axis (positive distance along the view direction)
-            float DepthOf(Vector3 world)
-            {
-                var viewSpace = Vector3.Transform(world, _camera.ViewMatrix);
-                // Points in front of the camera typically have negative Z in view space,
-                // so flip the sign so that "smaller" means closer to the camera.
-                return -viewSpace.Z;
-            }
+            Vector3 axisDirX = Vector3.Right * size;
+            Vector3 axisDirY = Vector3.Up * size;
+            Vector3 axisDirZ = Vector3.Backward * size;
 
-            _axisDepthX = Math.Min(DepthOf(centerWorld), DepthOf(axisEndX));
-            _axisDepthY = Math.Min(DepthOf(centerWorld), DepthOf(axisEndY));
-            _axisDepthZ = Math.Min(DepthOf(centerWorld), DepthOf(axisEndZ));
+            var endXScreen = viewport.Project(center + axisDirX, _camera.ProjectionMatrix, _camera.ViewMatrix, Matrix.Identity);
+            var endYScreen = viewport.Project(center + axisDirY, _camera.ProjectionMatrix, _camera.ViewMatrix, Matrix.Identity);
+            var endZScreen = viewport.Project(center + axisDirZ, _camera.ProjectionMatrix, _camera.ViewMatrix, Matrix.Identity);
 
-            float distX = DistanceToSegment(mousePos, centerPos, endXPos);
-            float distY = DistanceToSegment(mousePos, centerPos, endYPos);
-            float distZ = DistanceToSegment(mousePos, centerPos, endZPos);
+            float distX = DistanceToSegment(mousePos, centerPos, new Vector2(endXScreen.X, endXScreen.Y));
+            float distY = DistanceToSegment(mousePos, centerPos, new Vector2(endYScreen.X, endYScreen.Y));
+            float distZ = DistanceToSegment(mousePos, centerPos, new Vector2(endZScreen.X, endZScreen.Y));
 
             GizmoAxis bestAxis = GizmoAxis.None;
             float bestDist = AxisHitThresholdPixels;
-            float bestDepth = float.MaxValue;
 
-            void ConsiderCandidate(GizmoAxis axis, float dist, float depth)
+            if (distX < bestDist)
             {
-                if (dist > AxisHitThresholdPixels)
-                    return;
-
-                // Prefer smaller screen distance; when similar, prefer the one closer to the camera.
-                const float distanceEpsilon = 0.5f;
-
-                if (dist < bestDist - distanceEpsilon ||
-                    (Math.Abs(dist - bestDist) <= distanceEpsilon && depth < bestDepth))
-                {
-                    bestAxis = axis;
-                    bestDist = dist;
-                    bestDepth = depth;
-                }
+                bestAxis = GizmoAxis.X;
+                bestDist = distX;
             }
 
-            ConsiderCandidate(GizmoAxis.X, distX, _axisDepthX);
-            ConsiderCandidate(GizmoAxis.Y, distY, _axisDepthY);
-            ConsiderCandidate(GizmoAxis.Z, distZ, _axisDepthZ);
+            if (distY < bestDist)
+            {
+                bestAxis = GizmoAxis.Y;
+                bestDist = distY;
+            }
+
+            if (distZ < bestDist)
+            {
+                bestAxis = GizmoAxis.Z;
+                bestDist = distZ;
+            }
 
             return bestAxis;
         }

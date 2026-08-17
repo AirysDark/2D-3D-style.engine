@@ -1,0 +1,23 @@
+{
+  "ProjectRoot": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.EditorSuite.Build\\bin\\Debug\\net6.0-windows\\",
+  "MapsRoot": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.EditorSuite.Build\\bin\\Debug\\net6.0-windows\\Content\\Data\\maps",
+  "MapsScanned": [
+    "Content\\Data\\maps\\test.dat"
+  ],
+  "MissingMapFiles": [],
+  "TextureFilesUsed": [],
+  "MissingTextureFiles": [],
+  "NpcTexturesUsed": [],
+  "MissingNpcTextures": [],
+  "MusicFilesUsed": [
+    "Content\\Songs\\RouteMusic0.ogg",
+    "Content\\Songs\\RouteMusic0.wav",
+    "Content\\Songs\\RouteMusic0.mp3"
+  ],
+  "MissingMusicFiles": [
+    "Content\\Songs\\RouteMusic0.ogg"
+  ],
+  "ScriptPathsUsed": [],
+  "MissingScriptPaths": [],
+  "ReportPath": ""
+}

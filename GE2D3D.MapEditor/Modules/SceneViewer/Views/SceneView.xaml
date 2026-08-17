@@ -113,29 +113,7 @@
                 <ComboBoxItem Content="90" />
             </ComboBox>
 
-            <Separator />
-
         </ToolBar>
-
-        <!-- ===========================
-             ASSET / PREFAB BROWSER (MOVED)
-             =========================== -->
-        <!-- Assets panel moved to floating tool window (Toolbox ? Assets) -->
-
-        <!-- ===========================
-             ENTITIES LIST PANEL
-             =========================== -->
-        <!-- Entities panel moved to floating tool window (Toolbox menu) -->
-
-        <!-- ===========================
-             SELECTION / INSPECTOR PANEL
-             =========================== -->
-        <!-- Selection panel moved to floating tool window (Toolbox menu) -->
-
-        <!-- ===========================
-             CAMERA PATH PANEL
-             =========================== -->
-        <!-- Camera Path panel moved to floating tool window (Toolbox menu) -->
 
         <!-- ===========================
              MONOGAME HOST GRID

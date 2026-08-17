@@ -324,6 +324,24 @@ namespace GE2D3D.MapEditor.Components.Render
             AlphaTestEffect.View = Camera.ViewMatrix;
             AlphaTestEffect.Projection = Camera.ProjectionMatrix;
 
+            // Apply fog parameters from editor settings (Track K8)
+            if (EditorSettings != null)
+            {
+                if (EditorSettings.EnableFog)
+                {
+                    BasicEffect.FogEnabled = true;
+                    BasicEffect.FogColor = EditorSettings.FogColor.ToVector3();
+                    BasicEffect.FogStart = EditorSettings.FogStart;
+                    BasicEffect.FogEnd = EditorSettings.FogEnd;
+                }
+                else
+                {
+                    BasicEffect.FogEnabled = false;
+                }
+            }
+
+
+
 
             var prevRenderTargets = GraphicsDevice.GetRenderTargets();
 
@@ -344,10 +362,85 @@ namespace GE2D3D.MapEditor.Components.Render
                 GraphicsDevice.Clear(Color.CornflowerBlue);
             }
 
+            
             // Level.Draw should honor EditorSettings + Level.Layers (geometry/props/collision/lights/triggers).
-            Level?.Draw(BasicEffect, AlphaTestEffect, EditorSettings);
-            ModelSelector?.Draw(BasicEffect);
+            if (Level != null && EditorSettings != null)
+            {
+                // Cache original layer + lighting flags so view modes are non-destructive
+                bool originalShowTerrain = EditorSettings.ShowTerrain;
+                bool originalShowProps = EditorSettings.ShowProps;
+                bool originalShowCollision = EditorSettings.ShowCollision;
+                bool originalShowLights = EditorSettings.ShowLights;
+                bool originalShowTriggers = EditorSettings.ShowTriggers;
+                bool originalEnableLighting = EditorSettings.EnableLighting;
 
+                // Simple view mode overrides
+                var mode = EditorRenderSettings.EditorViewMode.Shaded;
+                try
+                {
+                    mode = EditorSettings.ViewMode;
+                }
+                catch
+                {
+                    // In case older serialized settings or bindings are present, fall back to shaded.
+                    mode = EditorRenderSettings.EditorViewMode.Shaded;
+                }
+
+                // Configure rasterizer state for wireframe when needed
+                var previousRasterizer = GraphicsDevice.RasterizerState;
+
+                switch (mode)
+                {
+                    case EditorRenderSettings.EditorViewMode.Unlit:
+                        EditorSettings.EnableLighting = false;
+                        break;
+
+                    case EditorRenderSettings.EditorViewMode.Wireframe:
+                        GraphicsDevice.RasterizerState = new RasterizerState
+                        {
+                            CullMode = CullMode.CullCounterClockwiseFace,
+                            FillMode = FillMode.WireFrame
+                        };
+                        break;
+
+                    case EditorRenderSettings.EditorViewMode.CollisionOnly:
+                        EditorSettings.ShowTerrain = false;
+                        EditorSettings.ShowProps = false;
+                        EditorSettings.ShowCollision = true;
+                        EditorSettings.ShowLights = false;
+                        EditorSettings.ShowTriggers = false;
+                        break;
+
+                    case EditorRenderSettings.EditorViewMode.TriggerOnly:
+                        EditorSettings.ShowTerrain = false;
+                        EditorSettings.ShowProps = false;
+                        EditorSettings.ShowCollision = false;
+                        EditorSettings.ShowLights = false;
+                        EditorSettings.ShowTriggers = true;
+                        break;
+
+                    default:
+                        // Shaded: use whatever the user configured.
+                        break;
+                }
+
+                Level.Draw(BasicEffect, AlphaTestEffect, EditorSettings);
+                ModelSelector?.Draw(BasicEffect);
+
+                // Restore previous rasterizer state and editor flags
+                GraphicsDevice.RasterizerState = previousRasterizer ?? GraphicsDevice.RasterizerState;
+                EditorSettings.ShowTerrain = originalShowTerrain;
+                EditorSettings.ShowProps = originalShowProps;
+                EditorSettings.ShowCollision = originalShowCollision;
+                EditorSettings.ShowLights = originalShowLights;
+                EditorSettings.ShowTriggers = originalShowTriggers;
+                EditorSettings.EnableLighting = originalEnableLighting;
+            }
+            else
+            {
+                Level?.Draw(BasicEffect, AlphaTestEffect, EditorSettings);
+                ModelSelector?.Draw(BasicEffect);
+            }
             // Draw selection gizmo on top of scene
             if (_transformGizmo != null && EditorSettings.ShowSelectionGizmo)
             {
@@ -438,7 +531,7 @@ namespace GE2D3D.MapEditor.Components.Render
         /// Apply our current directional light state into BasicEffect.
         /// Safe to call multiple times.
         /// </summary>
-        private void ApplyDirectionalLightingToEffect()
+                private void ApplyDirectionalLightingToEffect()
         {
             if (BasicEffect == null)
                 return;
@@ -455,6 +548,32 @@ namespace GE2D3D.MapEditor.Components.Render
             var diffuse = _dirLightDiffuse.ToVector3();
             var ambient = _ambientLight.ToVector3();
 
+            // Apply editor-controlled ambient intensity (Track K8)
+            if (EditorSettings != null)
+            {
+                ambient *= EditorSettings.AmbientIntensity;
+            }
+
+
+            // Apply simple SSAO / bloom style tweaks based on editor settings.
+            if (EditorSettings != null)
+            {
+                if (EditorSettings.EnableSsao)
+                {
+                    ambient *= 0.8f; // darken a bit
+                }
+
+                if (EditorSettings.EnableBloom)
+                {
+                    ambient *= 1.1f; // brighten a bit
+                }
+            }
+
+            // Clamp ambient into valid range.
+            ambient.X = MathHelper.Clamp(ambient.X, 0f, 1f);
+            ambient.Y = MathHelper.Clamp(ambient.Y, 0f, 1f);
+            ambient.Z = MathHelper.Clamp(ambient.Z, 0f, 1f);
+
             var d0 = BasicEffect.DirectionalLight0;
             d0.Enabled = true;
             d0.Direction = dir;
@@ -463,8 +582,7 @@ namespace GE2D3D.MapEditor.Components.Render
 
             BasicEffect.AmbientLightColor = ambient;
         }
-
-        // --------------------------------------------------------------------
+// --------------------------------------------------------------------
         // Grid snapping helper
         // --------------------------------------------------------------------
         /// <summary>

@@ -27,5 +27,6 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("effect/resources/fxaaeffectdefault.dx11.mgfx")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("effect/resources/fxaaeffecthigh.dx11.mgfx")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("effect/resources/fxaaeffectlow.dx11.mgfx")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/icons/p3d-legacy.ico")]
 
 

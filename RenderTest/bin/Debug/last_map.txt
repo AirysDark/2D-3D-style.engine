@@ -1,0 +1,1 @@
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.MapEditor\bin\Debug\net6.0-windows\Content\Data\maps\yourroom.dat

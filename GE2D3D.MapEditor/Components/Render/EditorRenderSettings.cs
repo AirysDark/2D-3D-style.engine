@@ -132,6 +132,7 @@ namespace GE2D3D.MapEditor.Components.Render
             }
         }
 
+
         private bool _showTriggerVolumes = true;
         public bool ShowTriggerVolumes
         {
@@ -143,6 +144,172 @@ namespace GE2D3D.MapEditor.Components.Render
                 OnPropertyChanged();
             }
         }
+
+
+        // -------------------------------
+        // Scene view mode & environment
+        // -------------------------------
+
+        /// <summary>
+        /// Render mode for the main scene view.
+        /// Shaded is the default; other modes are debug / visualization helpers.
+        /// </summary>
+        public enum EditorViewMode
+        {
+            Shaded = 0,
+            Unlit = 1,
+            Wireframe = 2,
+            CollisionOnly = 3,
+            TriggerOnly = 4
+        }
+
+        private EditorViewMode _viewMode = EditorViewMode.Shaded;
+        public EditorViewMode ViewMode
+        {
+            get => _viewMode;
+            set
+            {
+                if (value == _viewMode) return;
+                _viewMode = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Additional ambient light multiplier applied on top of level lighting.
+        /// 1.0 keeps the default look; lower = darker, higher = brighter.
+        /// </summary>
+        private float _ambientIntensity = 1.0f;
+        public float AmbientIntensity
+        {
+            get => _ambientIntensity;
+            set
+            {
+                if (Math.Abs(value - _ambientIntensity) < 0.0001f) return;
+                _ambientIntensity = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Optional fog toggle and parameters used by the renderer.
+        /// </summary>
+        private bool _enableFog;
+        public bool EnableFog
+        {
+            get => _enableFog;
+            set
+            {
+                if (value == _enableFog) return;
+                _enableFog = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Color _fogColor = Color.CornflowerBlue;
+        public Color FogColor
+        {
+            get => _fogColor;
+            set
+            {
+                if (value == _fogColor) return;
+                _fogColor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private float _fogStart = 32f;
+        public float FogStart
+        {
+            get => _fogStart;
+            set
+            {
+                if (Math.Abs(value - _fogStart) < 0.0001f) return;
+                _fogStart = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private float _fogEnd = 256f;
+        public float FogEnd
+        {
+            get => _fogEnd;
+            set
+            {
+                if (Math.Abs(value - _fogEnd) < 0.0001f) return;
+                _fogEnd = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // -------------------------------
+        // Advanced render toggles (Track H)
+        // -------------------------------
+
+        private bool _enableShadows;
+        /// <summary>
+        /// Enables simple distance-based shadow/fog behaviour in the renderer.
+        /// This is a coarse toggle; the exact implementation lives in Render.cs.
+        /// </summary>
+        public bool EnableShadows
+        {
+            get => _enableShadows;
+            set
+            {
+                if (value == _enableShadows) return;
+                _enableShadows = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _enableBloom;
+        /// <summary>
+        /// When true, the renderer slightly boosts ambient light to simulate bloom.
+        /// This is a stylistic post-process toggle, not a full HDR pipeline.
+        /// </summary>
+        public bool EnableBloom
+        {
+            get => _enableBloom;
+            set
+            {
+                if (value == _enableBloom) return;
+                _enableBloom = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _enableSsao;
+        /// <summary>
+        /// When true, the renderer darkens ambient light slightly to simulate SSAO.
+        /// This is a cheap approximation applied in directional lighting.
+        /// </summary>
+        public bool EnableSsao
+        {
+            get => _enableSsao;
+            set
+            {
+                if (value == _enableSsao) return;
+                _enableSsao = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _enableDepthOfField;
+        /// <summary>
+        /// Enables distance-based fog to approximate depth-of-field feel.
+        /// Implemented via BasicEffect.Fog in Render.cs.
+        /// </summary>
+        public bool EnableDepthOfField
+        {
+            get => _enableDepthOfField;
+            set
+            {
+                if (value == _enableDepthOfField) return;
+                _enableDepthOfField = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         // -------------------------------
         // Lighting / Environment

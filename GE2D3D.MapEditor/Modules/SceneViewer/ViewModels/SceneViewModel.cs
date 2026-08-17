@@ -1,38 +1,50 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
-using System.Windows.Input;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-using Microsoft.Win32;
-using Prism.Mvvm;
-using Prism.Commands;
-
+﻿using GE2D3D.MapEditor.Components.Camera;
+using GE2D3D.MapEditor.Components.Tools;
 using GE2D3D.MapEditor.Data;
-using GE2D3D.MapEditor.Data.Models;
 using GE2D3D.MapEditor.Modules.SceneViewer.Views;
 using GE2D3D.MapEditor.Properties;
 using GE2D3D.MapEditor.Utils;
-using System.Text.Json;
-using GE2D3D.MapEditor.Components.Camera;
+using Microsoft.Win32;
 using Microsoft.Xna.Framework;
+using Prism.Commands;
+using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
 {
     /// <summary>
     /// Prism scene document/view model.
     /// </summary>
-    public class SceneViewModel : BindableBase
+    public class SceneViewModel : BindableBase, INotifyPropertyChanged
     {
+        // --------------------------------------------------------------------
+        // Core document / view references
+        // --------------------------------------------------------------------
+
         private SceneView? _sceneView;
-        private DispatcherTimer? _selectionTimer;
+        private readonly DispatcherTimer _selectionTimer;
 
         private string? _filePath;
         private string? _displayName;
         private string _originalText = string.Empty;
+
+        // Status bar fields (Track I)
+        private string _statusCameraText = string.Empty;
+        private string _statusSelectionText = string.Empty;
+        private string _statusMessage = string.Empty;
+
+        // Current active editor tool mode (Select / Place Prefab, etc.).
+        private EditorToolMode _currentToolMode = EditorToolMode.Select;
 
         public string? FilePath
         {
@@ -55,6 +67,33 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             private set => SetProperty(ref _displayName, value);
         }
 
+        /// <summary>
+        /// Status text showing camera position and heading, used by the status bar.
+        /// </summary>
+        public string StatusCameraText
+        {
+            get => _statusCameraText;
+            private set => SetProperty(ref _statusCameraText, value);
+        }
+
+        /// <summary>
+        /// Status text describing the current selection (entity id/type).
+        /// </summary>
+        public string StatusSelectionText
+        {
+            get => _statusSelectionText;
+            private set => SetProperty(ref _statusSelectionText, value);
+        }
+
+        /// <summary>
+        /// General status / hint text area.
+        /// </summary>
+        public string StatusMessage
+        {
+            get => _statusMessage;
+            private set => SetProperty(ref _statusMessage, value);
+        }
+
         public LevelInfo? LevelInfo { get; private set; }
 
         private FileSystemWatcher? _mapWatcher;
@@ -70,6 +109,74 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
         private bool _showLights = true;
         private bool _showTriggers = true;
         private bool _showGrid = true;
+
+        public bool ShowGeometry
+        {
+            get => _showGeometry;
+            set { if (SetProperty(ref _showGeometry, value)) PushLayerStateToRender(); }
+        }
+
+        public bool ShowProps
+        {
+            get => _showProps;
+            set { if (SetProperty(ref _showProps, value)) PushLayerStateToRender(); }
+        }
+
+        public bool ShowCollision
+        {
+            get => _showCollision;
+            set { if (SetProperty(ref _showCollision, value)) PushLayerStateToRender(); }
+        }
+
+        public bool ShowLights
+        {
+            get => _showLights;
+            set { if (SetProperty(ref _showLights, value)) PushLayerStateToRender(); }
+        }
+
+        public bool ShowTriggers
+        {
+            get => _showTriggers;
+            set { if (SetProperty(ref _showTriggers, value)) PushLayerStateToRender(); }
+        }
+
+        public bool ShowGrid
+        {
+            get => _showGrid;
+            set { if (SetProperty(ref _showGrid, value)) PushLayerStateToRender(); }
+        }
+
+        // -------------------------------------------------------
+        // Grid + rotation snapping
+        // -------------------------------------------------------
+
+        private bool _useGridSnap;
+        public bool UseGridSnap
+        {
+            get => _useGridSnap;
+            set { if (SetProperty(ref _useGridSnap, value)) PushGridSnapStateToRender(); }
+        }
+
+        private float _gridSize = 1.0f;
+        public float GridSize
+        {
+            get => _gridSize;
+            set { if (SetProperty(ref _gridSize, value)) PushGridSnapStateToRender(); }
+        }
+
+        private bool _rotationSnapEnabled;
+        public bool RotationSnapEnabled
+        {
+            get => _rotationSnapEnabled;
+            set { if (SetProperty(ref _rotationSnapEnabled, value)) PushRotationSnapStateToRender(); }
+        }
+
+        private float _rotationSnapStep = 15.0f;
+        public float RotationSnapStep
+        {
+            get => _rotationSnapStep;
+            set { if (SetProperty(ref _rotationSnapStep, value)) PushRotationSnapStateToRender(); }
+        }
 
         // -----------------------------------------
         // Simple transform undo/redo (position + size + rotation, inspector-driven)
@@ -164,8 +271,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
 
         /// <summary>
         /// Light-specific inspector fields (for entities classified as 'Light').
-        /// These are always exposed in the UI but only kept in sync when the
-        /// selected entity kind is Light.
         /// </summary>
         private int _selectedLightColorR;
         private int _selectedLightColorG;
@@ -242,15 +347,54 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             set => SetProperty(ref _selectedEntitySizeZ, value);
         }
 
-        // -----------------------------------------
-        // Entity browser (debug / tooling)
-        // -----------------------------------------
+        // -------------------------------------------------------
+        // Skybox / Environment
+        // -------------------------------------------------------
 
-        // Asset / Prefab browser (part 1/6 of placement tools)
-        // Exposes the static ModelPrefabCatalog as a WPF-friendly
-        // observable list that the SceneView can bind to.
+        private bool _skyboxEnabled;
+        public bool SkyboxEnabled
+        {
+            get => _skyboxEnabled;
+            set
+            {
+                if (SetProperty(ref _skyboxEnabled, value))
+                {
+                    PushSkyboxStateToRender();
+                }
+            }
+        }
 
-        public sealed class PrefabListItem
+        private string? _skyboxInnerTexturePath;
+        public string? SkyboxInnerTexturePath
+        {
+            get => _skyboxInnerTexturePath;
+            set
+            {
+                if (SetProperty(ref _skyboxInnerTexturePath, value))
+                {
+                    PushSkyboxStateToRender();
+                }
+            }
+        }
+
+        private string? _skyboxOuterTexturePath;
+        public string? SkyboxOuterTexturePath
+        {
+            get => _skyboxOuterTexturePath;
+            set
+            {
+                if (SetProperty(ref _skyboxOuterTexturePath, value))
+                {
+                    PushSkyboxStateToRender();
+                }
+            }
+        }
+
+        // -------------------------------------------------------
+        // Prefab / Assets browser (for AssetsWindow & asset panel)
+        // -------------------------------------------------------
+
+        public class PrefabListItem
         {
             public int ModelId { get; }
             public string Name { get; }
@@ -265,28 +409,23 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
 
             public override string ToString()
             {
-                return string.IsNullOrEmpty(Category)
-                    ? $"{Name} (#{ModelId})"
-                    : $"{Name} - {Category} (#{ModelId})";
+                return $"{Name} ({Category})";
             }
         }
 
-        private readonly ObservableCollection<PrefabListItem> _prefabs = new ObservableCollection<PrefabListItem>();
-        public ReadOnlyObservableCollection<PrefabListItem> Prefabs { get; }
+        public ObservableCollection<PrefabListItem> Prefabs { get; } =
+            new ObservableCollection<PrefabListItem>();
 
         private PrefabListItem? _selectedPrefab;
-        /// <summary>
-        /// Current prefab selected in the asset browser. In this first
-        /// part, it is only exposed to the UI and not yet wired to
-        /// placement; later parts of the task will hook this into
-        /// ghost previews and click-to-place.
-        /// </summary>
         public PrefabListItem? SelectedPrefab
         {
             get => _selectedPrefab;
             set => SetProperty(ref _selectedPrefab, value);
         }
 
+        // -----------------------------------------
+        // Entity browser (debug / tooling)
+        // -----------------------------------------
 
         public class EntityListItem
         {
@@ -337,16 +476,11 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
         }
 
         private string? _entityKindFilter;
-
-        /// <summary>
-        /// Optional kind filter for the entity list ("Light", "Trigger", "Collision", "Entity" or null/empty for all).
-        /// </summary>
         public string? EntityKindFilter
         {
             get => _entityKindFilter;
             set
             {
-                // Treat null/empty or a label like "(All)" as "no kind filter".
                 string? normalized = value;
 
                 if (!string.IsNullOrWhiteSpace(normalized))
@@ -367,117 +501,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
                 if (SetProperty(ref _entityKindFilter, normalized))
                 {
                     RefreshEntityList();
-                }
-            }
-        }
-
-        public bool ShowGeometry
-        {
-            get => _showGeometry;
-            set { if (SetProperty(ref _showGeometry, value)) PushLayerStateToRender(); }
-        }
-
-        public bool ShowProps
-        {
-            get => _showProps;
-            set { if (SetProperty(ref _showProps, value)) PushLayerStateToRender(); }
-        }
-
-        public bool ShowCollision
-        {
-            get => _showCollision;
-            set { if (SetProperty(ref _showCollision, value)) PushLayerStateToRender(); }
-        }
-
-        public bool ShowLights
-        {
-            get => _showLights;
-            set { if (SetProperty(ref _showLights, value)) PushLayerStateToRender(); }
-        }
-
-        public bool ShowTriggers
-        {
-            get => _showTriggers;
-            set { if (SetProperty(ref _showTriggers, value)) PushLayerStateToRender(); }
-        }
-
-        public bool ShowGrid
-        {
-            get => _showGrid;
-            set { if (SetProperty(ref _showGrid, value)) PushLayerStateToRender(); }
-        }
-
-        // -------------------------------------------------------
-        // Grid + rotation snapping
-        // -------------------------------------------------------
-
-        private bool _useGridSnap;
-        public bool UseGridSnap
-        {
-            get => _useGridSnap;
-            set { if (SetProperty(ref _useGridSnap, value)) PushGridSnapStateToRender(); }
-        }
-
-        private float _gridSize = 1.0f;
-        public float GridSize
-        {
-            get => _gridSize;
-            set { if (SetProperty(ref _gridSize, value)) PushGridSnapStateToRender(); }
-        }
-
-        private bool _rotationSnapEnabled;
-        public bool RotationSnapEnabled
-        {
-            get => _rotationSnapEnabled;
-            set { if (SetProperty(ref _rotationSnapEnabled, value)) PushRotationSnapStateToRender(); }
-        }
-
-        private float _rotationSnapStep = 15.0f;
-        public float RotationSnapStep
-        {
-            get => _rotationSnapStep;
-            set { if (SetProperty(ref _rotationSnapStep, value)) PushRotationSnapStateToRender(); }
-        }
-
-        // -------------------------------------------------------
-        // Skybox / Environment
-        // -------------------------------------------------------
-
-        private bool _skyboxEnabled;
-        public bool SkyboxEnabled
-        {
-            get => _skyboxEnabled;
-            set
-            {
-                if (SetProperty(ref _skyboxEnabled, value))
-                {
-                    PushSkyboxStateToRender();
-                }
-            }
-        }
-
-        private string? _skyboxInnerTexturePath;
-        public string? SkyboxInnerTexturePath
-        {
-            get => _skyboxInnerTexturePath;
-            set
-            {
-                if (SetProperty(ref _skyboxInnerTexturePath, value))
-                {
-                    PushSkyboxStateToRender();
-                }
-            }
-        }
-
-        private string? _skyboxOuterTexturePath;
-        public string? SkyboxOuterTexturePath
-        {
-            get => _skyboxOuterTexturePath;
-            set
-            {
-                if (SetProperty(ref _skyboxOuterTexturePath, value))
-                {
-                    PushSkyboxStateToRender();
                 }
             }
         }
@@ -522,7 +545,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             {
                 if (SetProperty(ref _cameraPathCurrentTime, value))
                 {
-                    // When the user scrubs the slider, update the camera immediately
                     var recorder = GetCameraPathRecorder();
                     recorder?.ApplyAtTime(_cameraPathCurrentTime);
                 }
@@ -543,6 +565,7 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
         public ICommand NewLevelCommand { get; }
         public ICommand OpenLevelCommand { get; }
         public ICommand SaveLevelCommand { get; }
+        public ICommand ExportLevelToJsonCommand { get; }
 
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
@@ -569,11 +592,16 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
         public ICommand ChooseSkyboxInnerTextureCommand { get; }
         public ICommand ChooseSkyboxOuterTextureCommand { get; }
 
+        // -------------------------------------------------------
+        // Constructor
+        // -------------------------------------------------------
+
         public SceneViewModel()
         {
             NewLevelCommand = new DelegateCommand(OnNewLevel);
             OpenLevelCommand = new DelegateCommand(OnOpenLevel);
             SaveLevelCommand = new DelegateCommand(OnSaveLevel);
+            ExportLevelToJsonCommand = new DelegateCommand(OnExportLevelToJson);
 
             UndoCommand = new DelegateCommand(OnUndo);
             RedoCommand = new DelegateCommand(OnRedo);
@@ -600,50 +628,43 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             ChooseSkyboxOuterTextureCommand = new DelegateCommand(OnChooseSkyboxOuterTexture);
 
             Entities = new ReadOnlyObservableCollection<EntityListItem>(_entities);
-            Prefabs = new ReadOnlyObservableCollection<PrefabListItem>(_prefabs);
 
+            // Initial prefab population so Assets window is never blank
+            RefreshPrefabList();
 
-            // Poll selection state periodically so the inspector stays in sync
+            // Poll selection state periodically so the inspector + status bar stay in sync
             _selectionTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(100)
             };
-            _selectionTimer.Tick += (_, __) => RefreshSelectionInspector();
+            _selectionTimer.Tick += (_, __) =>
+            {
+                RefreshSelectionInspector();
+                RefreshStatusBar();
+            };
             _selectionTimer.Start();
 
-            InitializePrefabsFromCatalog();
             UpdateDisplayName();
         }
 
-
-        /// <summary>
-        /// Populates the asset / prefab browser list from the static model catalog.
-        /// This is PART 1/6 of the Asset Browser + Placement tools: we only expose
-        /// the data for selection; later parts will hook this into ghost previews
-        /// and scene placement.
-        /// </summary>
-        private void InitializePrefabsFromCatalog()
-        {
-            _prefabs.Clear();
-
-            foreach (var prefab in ModelPrefabCatalog.All)
-            {
-                _prefabs.Add(new PrefabListItem(prefab.ModelId, prefab.Name, prefab.Category));
-            }
-
-            // Optional default: first prefab selected.
-            if (_prefabs.Count > 0)
-            {
-                SelectedPrefab = _prefabs[0];
-            }
-        }
+        // -------------------------------------------------------
+        // View attachment
+        // -------------------------------------------------------
 
         public void AttachView(SceneView view)
         {
             _sceneView = view;
 
             if (LevelInfo != null)
+            {
+                // Ensure the runtime builds the level
                 _sceneView.RefreshFromLevel(LevelInfo);
+            }
+
+            // Once the bootstrap exists, rebuild entities + prefabs
+            RefreshEntityList();
+            RefreshPrefabList();
+            RefreshStatusBar();
 
             PushLayerStateToRender();
             PushGridSnapStateToRender();
@@ -657,7 +678,7 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
         }
 
         // -------------------------------------------------------
-        // Command Handlers
+        // Command Handlers ? file
         // -------------------------------------------------------
 
         private async void OnNewLevel()
@@ -673,7 +694,8 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
                 var dialog = new OpenFileDialog
                 {
                     InitialDirectory = EditorPaths.GetMapsFolder(),
-                    Filter = "Map files (*.dat)|*.dat|All files (*.*)|*.*"
+                    Filter = "Map files (*.dat)|*.dat|All files (*.*)|*.*",
+                    Title = "Open Map"
                 };
 
                 if (dialog.ShowDialog() == true)
@@ -713,6 +735,45 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             }
         }
 
+        private void OnExportLevelToJson()
+        {
+            try
+            {
+                if (LevelInfo == null)
+                {
+                    ShowError("There is no map loaded to export.", null!);
+                    return;
+                }
+
+                var dialog = new SaveFileDialog
+                {
+                    Title = "Export Map as JSON",
+                    InitialDirectory = EditorPaths.GetMapsFolder(),
+                    FileName = string.IsNullOrWhiteSpace(FileName)
+                        ? "MapExport.json"
+                        : Path.ChangeExtension(FileName, ".json"),
+                    Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*",
+                    DefaultExt = ".json",
+                    AddExtension = true
+                };
+
+                if (dialog.ShowDialog() != true)
+                    return;
+
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                };
+
+                var json = JsonSerializer.Serialize(LevelInfo, options);
+                File.WriteAllText(dialog.FileName, json);
+            }
+            catch (Exception ex)
+            {
+                ShowError("Failed to export map as JSON.", ex);
+            }
+        }
+
         // -------------------------------------------------------
         // Camera path operations
         // -------------------------------------------------------
@@ -739,6 +800,26 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
                 CameraPathDuration = 0f;
             }
         }
+
+        // Preview selected camera keyframe
+        private void OnPreviewSelectedCameraKeyframe()
+        {
+            var recorder = GetCameraPathRecorder();
+            var kf = SelectedCameraKeyframe;
+
+            if (recorder == null || kf == null)
+                return;
+
+            recorder.ApplyAtTime(kf.Time);
+            CameraPathCurrentTime = kf.Time;
+            IsCameraPathPlaying = false;
+
+            RefreshStatusBar();
+        }
+
+        // -------------------------------------------------------
+        // Selection helpers
+        // -------------------------------------------------------
 
         private EntityInfo? GetSelectedEntity()
         {
@@ -797,7 +878,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
                 SelectedEntityRotY = 0f;
                 SelectedEntityRotZ = 0f;
 
-                // Clear light inspector fields as well.
                 SelectedLightColorR = 0;
                 SelectedLightColorG = 0;
                 SelectedLightColorB = 0;
@@ -815,7 +895,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             var pos = e.Position;
             SelectedEntityPosition = string.Format("X={0:F2}, Y={1:F2}, Z={2:F2}", pos.X, pos.Y, pos.Z);
 
-            // Keep editable components in sync with the entity's position.
             SelectedEntityPosX = pos.X;
             SelectedEntityPosY = pos.Y;
             SelectedEntityPosZ = pos.Z;
@@ -825,7 +904,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             {
                 SelectedEntitySize = string.Format("X={0:F2}, Y={1:F2}, Z={2:F2}", size.X, size.Y, size.Z);
 
-                // Sync editable size components.
                 SelectedEntitySizeX = size.X;
                 SelectedEntitySizeY = size.Y;
                 SelectedEntitySizeZ = size.Z;
@@ -838,7 +916,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
                 SelectedEntitySizeZ = 0f;
             }
 
-            // Rotation: store and expose as degrees for the inspector.
             var rot = e.Rotation;
 
             SelectedEntityRotation = string.Format(
@@ -851,7 +928,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             SelectedEntityRotY = MathHelper.ToDegrees(rot.Y);
             SelectedEntityRotZ = MathHelper.ToDegrees(rot.Z);
 
-            // If this entity is classified as a light, sync light inspector fields.
             if (string.Equals(kind, "Light", StringComparison.OrdinalIgnoreCase))
             {
                 var col = e.Shader;
@@ -859,7 +935,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
                 SelectedLightColorG = col.G;
                 SelectedLightColorB = col.B;
 
-                // Interpret radius primarily from X size; fall back to a small default.
                 float radius = size != Vector3.Zero ? size.X : 3f;
                 if (radius < 0f)
                     radius = 0f;
@@ -868,14 +943,12 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             }
             else
             {
-                // Non-light entities: keep light inspector fields neutral but non-destructive.
                 SelectedLightColorR = 0;
                 SelectedLightColorG = 0;
                 SelectedLightColorB = 0;
                 SelectedLightRadius = 0f;
             }
 
-            // Also keep the Entities list selection in sync, if possible.
             if (_entities.Count > 0)
             {
                 foreach (var item in _entities)
@@ -888,6 +961,50 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// Updates the status bar strings from the current camera and selection.
+        /// </summary>
+        private void RefreshStatusBar()
+        {
+            var view = _sceneView;
+            var bootstrap = view?.Bootstrap;
+
+            if (bootstrap != null)
+            {
+                var cam = bootstrap.Camera;
+                var pos = cam.Position;
+                StatusCameraText = string.Format(
+                    "Cam: X={0:F1}, Y={1:F1}, Z={2:F1}",
+                    pos.X, pos.Y, pos.Z);
+            }
+            else
+            {
+                StatusCameraText = string.Empty;
+            }
+
+            var e = GetSelectedEntity();
+            if (e != null)
+            {
+                StatusSelectionText = string.Format(
+                    "Selected: #{0} ({1})",
+                    e.ID,
+                    string.IsNullOrWhiteSpace(e.EntityID) ? "Entity" : e.EntityID);
+            }
+            else
+            {
+                StatusSelectionText = "Selected: none";
+            }
+
+            if (string.IsNullOrWhiteSpace(StatusMessage))
+            {
+                StatusMessage = "Ready";
+            }
+        }
+
+        // -------------------------------------------------------
+        // Entity list / prefab list
+        // -------------------------------------------------------
 
         private void RefreshEntityList()
         {
@@ -943,6 +1060,57 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             }
         }
 
+        private void RefreshPrefabList()
+        {
+            Prefabs.Clear();
+
+            bool addedFromLevel = false;
+
+            if (LevelInfo != null && LevelInfo.Entities != null && LevelInfo.Entities.Count > 0)
+            {
+                var seen = new HashSet<string>();
+
+                foreach (var e in LevelInfo.Entities)
+                {
+                    if (e == null)
+                        continue;
+
+                    var kind = ClassifyEntityKind(e);
+                    string id = e.EntityID ?? string.Empty;
+                    string key = $"{id}|{kind}";
+
+                    if (!seen.Add(key))
+                        continue;
+
+                    int modelId = e.ID;
+
+                    string name = string.IsNullOrWhiteSpace(e.EntityID)
+                        ? $"Entity {e.ID}"
+                        : e.EntityID!;
+
+                    string category = kind;
+
+                    Prefabs.Add(new PrefabListItem(modelId, name, category));
+                    addedFromLevel = true;
+                }
+            }
+
+            if (!addedFromLevel)
+            {
+                Prefabs.Add(new PrefabListItem(1, "Debug Cube", "Geometry"));
+                Prefabs.Add(new PrefabListItem(2, "Debug Plane", "Geometry"));
+                Prefabs.Add(new PrefabListItem(3, "Point Light", "Light"));
+                Prefabs.Add(new PrefabListItem(4, "Spawn Point", "Entity"));
+            }
+
+            if (Prefabs.Count > 0 && SelectedPrefab == null)
+                SelectedPrefab = Prefabs[0];
+        }
+
+        // -------------------------------------------------------
+        // Small math helpers
+        // -------------------------------------------------------
+
         private static float SnapToGridComponent(float value, float gridSize)
         {
             if (gridSize <= 0f)
@@ -959,6 +1127,10 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             return (float)Math.Round(angleDegrees / stepDegrees) * stepDegrees;
         }
 
+        // -------------------------------------------------------
+        // List selection -> scene selection
+        // -------------------------------------------------------
+
         private void OnSelectedEntityListItemChanged(EntityListItem? item)
         {
             if (item == null)
@@ -973,7 +1145,12 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             bootstrap.FocusOnSelection();
 
             RefreshSelectionInspector();
+            RefreshStatusBar();
         }
+
+        // -------------------------------------------------------
+        // Skybox command handlers
+        // -------------------------------------------------------
 
         private void OnToggleSkybox()
         {
@@ -1022,6 +1199,10 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             }
         }
 
+        // -------------------------------------------------------
+        // Camera path command handlers
+        // -------------------------------------------------------
+
         private void OnStartCameraPathRecording()
         {
             var recorder = GetCameraPathRecorder();
@@ -1046,7 +1227,7 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
 
             if (IsCameraPathRecording)
             {
-                recorder.ToggleRecording(); // stop
+                recorder.ToggleRecording();
                 IsCameraPathRecording = false;
                 RefreshCameraPathState();
             }
@@ -1201,20 +1382,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             }
         }
 
-        private void OnPreviewSelectedCameraKeyframe()
-        {
-            var recorder = GetCameraPathRecorder();
-            if (recorder == null)
-                return;
-
-            var selected = SelectedCameraKeyframe;
-            if (selected == null)
-                return;
-
-            recorder.ApplyAtTime(selected.Time);
-            CameraPathCurrentTime = selected.Time;
-        }
-
         // -------------------------------------------------------
         // Core document logic
         // -------------------------------------------------------
@@ -1235,15 +1402,12 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             if (e == null)
                 return;
 
-            // Capture old transform for undo.
             var oldPos = e.Position;
             var oldSize = e.Size;
             var oldRot = e.Rotation;
 
-            // Build a new position from the editable components.
             var target = new Vector3(SelectedEntityPosX, SelectedEntityPosY, SelectedEntityPosZ);
 
-            // Optional: honour grid snap if enabled.
             var bootstrap = _sceneView?.Bootstrap;
             if (bootstrap?.Settings != null && bootstrap.Settings.EnableGridSnap)
             {
@@ -1256,11 +1420,11 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
 
             e.Position = target;
 
-            // Record undo entry (position change only; size remains the same).
             PushTransformUndo(e, oldPos, oldSize, oldRot, e.Position, e.Size, e.Rotation);
 
             RefreshSelectionInspector();
             RefreshEntityList();
+            RefreshStatusBar();
         }
 
         private void OnApplySelectionSize()
@@ -1269,25 +1433,22 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             if (e == null)
                 return;
 
-            // Capture old transform for undo.
             var oldPos = e.Position;
             var oldSize = e.Size;
             var oldRot = e.Rotation;
 
-            // Build a new size vector from the editable components.
             var size = new Vector3(SelectedEntitySizeX, SelectedEntitySizeY, SelectedEntitySizeZ);
 
-            // Avoid negative sizes by clamping to zero.
             size.X = Math.Max(0f, size.X);
             size.Y = Math.Max(0f, size.Y);
             size.Z = Math.Max(0f, size.Z);
 
             e.Size = size;
 
-            // Record undo entry (size change; position unchanged).
             PushTransformUndo(e, oldPos, oldSize, oldRot, e.Position, e.Size, e.Rotation);
 
             RefreshSelectionInspector();
+            RefreshStatusBar();
         }
 
         private void OnApplySelectionRotation()
@@ -1296,17 +1457,14 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             if (e == null)
                 return;
 
-            // Capture old transform for undo.
             var oldPos = e.Position;
             var oldSize = e.Size;
             var oldRot = e.Rotation;
 
-            // Read desired rotation in degrees from inspector.
             float degX = SelectedEntityRotX;
             float degY = SelectedEntityRotY;
             float degZ = SelectedEntityRotZ;
 
-            // Optional: honour rotation snap if enabled in settings.
             var bootstrap = _sceneView?.Bootstrap;
             var settings = bootstrap?.Settings;
             if (settings != null && settings.EnableRotationSnap)
@@ -1324,7 +1482,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
                 SelectedEntityRotZ = degZ;
             }
 
-            // Build new rotation vector (degrees -> radians).
             var newRot = new Vector3(
                 MathHelper.ToRadians(degX),
                 MathHelper.ToRadians(degY),
@@ -1332,11 +1489,11 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
 
             e.Rotation = newRot;
 
-            // Record undo entry for full transform.
             PushTransformUndo(e, oldPos, oldSize, oldRot, e.Position, e.Size, e.Rotation);
 
             RefreshSelectionInspector();
             RefreshEntityList();
+            RefreshStatusBar();
         }
 
         private void OnResetSelectionSize()
@@ -1345,20 +1502,16 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             if (e == null)
                 return;
 
-            // Capture old transform for undo.
             var oldPos = e.Position;
             var oldSize = e.Size;
             var oldRot = e.Rotation;
 
-            // Reset explicit bounds by clearing Size.
             e.Size = Vector3.Zero;
 
-            // Record undo entry (size reset).
             PushTransformUndo(e, oldPos, oldSize, oldRot, e.Position, e.Size, e.Rotation);
 
-            // Refresh inspector so the label returns to the implicit description
-            // and the editable components are reset.
             RefreshSelectionInspector();
+            RefreshStatusBar();
         }
 
         private void OnApplySelectionLight()
@@ -1371,28 +1524,25 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             if (!string.Equals(kind, "Light", StringComparison.OrdinalIgnoreCase))
                 return;
 
-            // Capture old transform for undo (size used as radius proxy).
             var oldPos = e.Position;
             var oldSize = e.Size;
             var oldRot = e.Rotation;
 
-            // Clamp colour components into byte range.
             int r = Math.Clamp(SelectedLightColorR, 0, 255);
             int g = Math.Clamp(SelectedLightColorG, 0, 255);
             int b = Math.Clamp(SelectedLightColorB, 0, 255);
 
             e.Shader = new Color(r, g, b);
 
-            // Radius is stored as a uniform size vector (XYZ).
             float radius = Math.Max(0f, SelectedLightRadius);
             var newSize = radius > 0f ? new Vector3(radius, radius, radius) : Vector3.Zero;
             e.Size = newSize;
 
-            // Record undo entry for size change.
             PushTransformUndo(e, oldPos, oldSize, oldRot, e.Position, e.Size, e.Rotation);
 
             RefreshSelectionInspector();
             RefreshEntityList();
+            RefreshStatusBar();
         }
 
         private void OnResetSelectionLight()
@@ -1405,19 +1555,22 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             if (!string.Equals(kind, "Light", StringComparison.OrdinalIgnoreCase))
                 return;
 
-            // Capture old transform for undo.
             var oldPos = e.Position;
             var oldSize = e.Size;
             var oldRot = e.Rotation;
 
-            // Reset to a neutral white light and implicit radius (size = 0).
             e.Shader = Color.White;
             e.Size = Vector3.Zero;
 
             PushTransformUndo(e, oldPos, oldSize, oldRot, e.Position, e.Size, e.Rotation);
 
             RefreshSelectionInspector();
+            RefreshStatusBar();
         }
+
+        // -------------------------------------------------------
+        // Undo / Redo
+        // -------------------------------------------------------
 
         private void OnUndo()
         {
@@ -1436,6 +1589,7 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
 
                 RefreshSelectionInspector();
                 RefreshEntityList();
+                RefreshStatusBar();
             }
             finally
             {
@@ -1461,6 +1615,7 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
 
                 RefreshSelectionInspector();
                 RefreshEntityList();
+                RefreshStatusBar();
             }
             finally
             {
@@ -1504,6 +1659,10 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             RaisePropertyChanged(nameof(CanRedo));
         }
 
+        // -------------------------------------------------------
+        // New / Load / Save
+        // -------------------------------------------------------
+
         public Task NewAsync()
         {
             FilePath = null;
@@ -1524,49 +1683,146 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
             RaisePropertyChanged(nameof(LevelInfo));
 
             UpdateDisplayName();
-            _sceneView?.LoadLevel(level);
+            _sceneView?.RefreshFromLevel(level);
 
             RefreshEntityList();
+            RefreshPrefabList();
 
             _undoStack.Clear();
             _redoStack.Clear();
             NotifyUndoRedoStacksChanged();
+            RefreshStatusBar();
 
             return Task.CompletedTask;
         }
 
+        private static void SaveLastMapPath(string path)
+        {
+            try
+            {
+                var root = EditorPaths.GetProjectRoot();
+                var file = Path.Combine(root, "last_map.txt");
+
+                if (!Directory.Exists(root))
+                    Directory.CreateDirectory(root);
+
+                File.WriteAllText(file, path ?? string.Empty);
+                Debug.WriteLine($"[SceneViewModel] Saved last_map.txt: {path}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[SceneViewModel] Failed to save last_map.txt: {ex.Message}");
+            }
+        }
+
         public async Task LoadAsync(string filePath)
         {
-            var text = await File.ReadAllTextAsync(filePath).ConfigureAwait(false);
+            Debug.WriteLine($"[SceneViewModel] LoadAsync: {filePath}");
 
-            LevelInfo = LevelLoader.Load(text, filePath);
-            _originalText = text;
-            FilePath = filePath;
-            _currentMapPath = filePath;
+            // -------------------------------------------------------
+            // Basic validation
+            // -------------------------------------------------------
+            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+            {
+                ShowError("Map file not found.", null!);
+                return;
+            }
 
-            RaisePropertyChanged(nameof(LevelInfo));
-            UpdateDisplayName();
+            try
+            {
+                // Status so you can see it's doing work
+                StatusMessage = $"Loading map: {Path.GetFileName(filePath)}...";
 
-            _sceneView?.RefreshFromLevel(LevelInfo);
+                // 1) Read raw text
+                string text = await File.ReadAllTextAsync(filePath);
 
-            RefreshEntityList();
+                // 2) Parse .dat into LevelInfo
+                LevelInfo loadedLevel;
+                try
+                {
+                    loadedLevel = LevelLoader.Load(text, filePath);
+                }
+                catch (Exception ex)
+                {
+                    ShowError("LevelLoader failed to parse this map file.", ex);
+                    return;
+                }
 
-            _undoStack.Clear();
-            _redoStack.Clear();
-            NotifyUndoRedoStacksChanged();
+                if (loadedLevel == null)
+                {
+                    ShowError("LevelLoader returned no level data.", null!);
+                    return;
+                }
 
-            SetupMapWatcher(filePath);
+                // NOTE: Do NOT try to assign Entities/Structures/OffsetMaps here.
+                // They are read-only properties on LevelInfo and are already created
+                // by the LevelInfo constructor that LevelLoader uses.
+
+                // 3) Apply to view model state
+                LevelInfo = loadedLevel;
+                _originalText = text;
+                FilePath = filePath;
+                _currentMapPath = filePath;
+
+                // Save last map for RenderTest / reload helpers
+                SaveLastMapPath(filePath);
+
+                // Optional: file watcher so external edits reload
+                SetupMapWatcher(filePath);
+
+                RaisePropertyChanged(nameof(LevelInfo));
+                UpdateDisplayName(); // makes the tab / window show the map filename
+
+                // 4) Push the new level into the SceneView / engine bootstrap
+                if (_sceneView != null && LevelInfo != null)
+                {
+                    _sceneView.RefreshFromLevel(LevelInfo);
+                }
+
+                // 5) Rebuild UI lists
+                RefreshEntityList();
+                RefreshPrefabList();
+
+                // 6) Reset undo/redo
+                _undoStack.Clear();
+                _redoStack.Clear();
+                NotifyUndoRedoStacksChanged();
+
+                RefreshStatusBar();
+
+                // 7) Final status + simple debug info so we know what got parsed
+                var entityCount = LevelInfo.Entities?.Count ?? 0;
+                var structureCount = LevelInfo.Structures?.Count ?? 0;
+                var offsetMapCount = LevelInfo.OffsetMaps?.Count ?? 0;
+
+                StatusMessage = $"Loaded map: {FileName}  " +
+                                $"(Entities: {entityCount}, Structures: {structureCount}, OffsetMaps: {offsetMapCount})";
+
+                MessageBox.Show(
+                    $"Loaded map '{FileName}'\n\n" +
+                    $"Entities:   {entityCount}\n" +
+                    $"Structures: {structureCount}\n" +
+                    $"OffsetMaps: {offsetMapCount}",
+                    "Map Load Debug",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                ShowError("Failed to load map file.", ex);
+            }
         }
 
         public async Task SaveAsync(string filePath)
         {
             var newText = _originalText ?? string.Empty;
 
-            await File.WriteAllTextAsync(filePath, newText).ConfigureAwait(false);
+            await File.WriteAllTextAsync(filePath, newText);
 
             FilePath = filePath;
             _originalText = newText;
 
+            SaveLastMapPath(filePath);
             UpdateDisplayName();
 
             try
@@ -1574,12 +1830,24 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
                 var reloadText = await File.ReadAllTextAsync(filePath);
                 LevelInfo = LevelLoader.Load(reloadText, filePath);
                 RaisePropertyChanged(nameof(LevelInfo));
-                _sceneView?.RefreshFromLevel(LevelInfo);
+
+                if (_sceneView != null && LevelInfo != null)
+                {
+                    _sceneView.RefreshFromLevel(LevelInfo);
+                }
+
+                RefreshEntityList();
+                RefreshPrefabList();
             }
             catch
             {
-                _sceneView?.RefreshFromLevel(LevelInfo);
+                if (_sceneView != null && LevelInfo != null)
+                {
+                    _sceneView.RefreshFromLevel(LevelInfo);
+                }
             }
+
+            RefreshStatusBar();
         }
 
         // -------------------------------------------------------
@@ -1595,8 +1863,8 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
 
         private static void ShowError(string message, Exception ex)
         {
-            MessageBox.Show($"{message}\n\n{ex.Message}", "Error",
-                MessageBoxButton.OK, MessageBoxImage.Error);
+            var msg = ex == null ? message : $"{message}\n\n{ex.Message}";
+            MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void PushLayerStateToRender()
@@ -1675,7 +1943,8 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.ViewModels
         {
             try
             {
-                if (!string.Equals(e.FullPath, _currentMapPath, StringComparison.OrdinalIgnoreCase))
+                if (!string.IsNullOrEmpty(_currentMapPath) &&
+                    !string.Equals(e.FullPath, _currentMapPath, StringComparison.OrdinalIgnoreCase))
                     return;
 
                 await Application.Current.Dispatcher.InvokeAsync(

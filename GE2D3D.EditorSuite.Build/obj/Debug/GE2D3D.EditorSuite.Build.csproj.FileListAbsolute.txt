@@ -1,0 +1,35 @@
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\GE2D3D.MapEditor.deps.json
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\GE2D3D.MapEditor.runtimeconfig.json
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\GE2D3D.MapEditor.exe
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\RenderTest.deps.json
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\RenderTest.runtimeconfig.json
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\RenderTest.exe
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\GE2D3D.EditorSuite.exe
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\Lucida Console_14.fnt
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\Lucida Console_14_0.png
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_15.fnt
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_15_0.png
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_32.fnt
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_32_0.png
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_32_1.png
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_64.fnt
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_64_0.png
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_64_1.png
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_64_2.png
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_64_3.png
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\Content\Fonts\PixelUnicode_64_4.png
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\GE2D3D.EditorSuite.deps.json
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\GE2D3D.EditorSuite.runtimeconfig.json
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\GE2D3D.EditorSuite.dll
+C:\Users\AirysDark\source\GE2D3D-MapEditor\bin\EditorSuite\Debug\GE2D3D.EditorSuite.pdb
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\GE2D3D.EditorSuite.Build.csproj.AssemblyReference.cache
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\GE2D3D.EditorSuite.Build.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\GE2D3D.EditorSuite.Build.AssemblyInfoInputs.cache
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\GE2D3D.EditorSuite.Build.AssemblyInfo.cs
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\GE2D3D.EditorSuite.Build.csproj.CoreCompileInputs.cache
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\GE2D3D.E.B87E6698.Up2Date
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\GE2D3D.EditorSuite.dll
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\refint\GE2D3D.EditorSuite.dll
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\GE2D3D.EditorSuite.pdb
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\GE2D3D.EditorSuite.Build.genruntimeconfig.cache
+C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\obj\Debug\ref\GE2D3D.EditorSuite.dll

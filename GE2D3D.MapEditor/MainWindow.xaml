@@ -9,10 +9,9 @@
         Width="1280"
         Height="720"
         WindowStartupLocation="CenterScreen">
-
     <DockPanel LastChildFill="True">
 
-        <!-- File Menu (uses window DataContext = SceneViewModel) -->
+        <!-- Main menu -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
 
@@ -44,14 +43,24 @@
                 <Separator/>
 
                 <!-- Tool windows -->
-                <MenuItem Header="_Assets"
-                          Click="OnAssetsMenuClick" />
                 <MenuItem Header="_Camera Path"
                           Click="OnCameraPathMenuClick" />
                 <MenuItem Header="_Selection"
                           Click="OnSelectionMenuClick" />
                 <MenuItem Header="_Entities"
                           Click="OnEntitiesMenuClick" />
+                <MenuItem Header="_Assets"
+                          Click="OnAssetsMenuClick" />
+
+                <Separator/>
+
+                <!-- RenderTest submenu -->
+                <MenuItem Header="_Render Test">
+                    <MenuItem Header="_Run With Last Loaded Map"
+                              Click="OnRenderTestRunLastMapClick" />
+                    <MenuItem Header="_Open Map and Run..."
+                              Click="OnRenderTestOpenAndRunClick" />
+                </MenuItem>
 
                 <Separator/>
 
@@ -83,21 +92,43 @@
                 <MenuItem Header="_Anti-Aliasing">
                     <MenuItem Header="_None"
                               Tag="None"
+                              IsCheckable="True"
                               Click="OnAAModeMenuClick" />
                     <MenuItem Header="_FXAA"
                               Tag="FXAA"
+                              IsCheckable="True"
                               Click="OnAAModeMenuClick" />
                     <MenuItem Header="_MSAA"
                               Tag="MSAA"
+                              IsCheckable="True"
                               Click="OnAAModeMenuClick" />
                     <MenuItem Header="_SSAA"
                               Tag="SSAA"
+                              IsCheckable="True"
                               Click="OnAAModeMenuClick" />
                 </MenuItem>
 
             </MenuItem>
-
         </Menu>
+
+        <!-- Status bar with camera / selection / message -->
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusCameraText}"
+                           Margin="4,0"
+                           VerticalAlignment="Center" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusSelectionText}"
+                           Margin="4,0"
+                           VerticalAlignment="Center" />
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Text="{Binding StatusMessage}"
+                           Margin="4,0"
+                           VerticalAlignment="Center" />
+            </StatusBarItem>
+        </StatusBar>
 
         <!-- 3D Scene: inherits the same DataContext (SceneViewModel) -->
         <views:SceneView x:Name="SceneViewControl" />

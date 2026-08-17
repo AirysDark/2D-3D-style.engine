@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+
+    <!-- Keep assembly + root namespace aligned -->
+    <AssemblyName>GE2D3D.MapEditor</AssemblyName>
+    <RootNamespace>GE2D3D.MapEditor</RootNamespace>
+
+    <!-- Optional: explicitly point to your manifest -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <!-- NuGet Packages -->
+  <ItemGroup>
+    <!-- UI & MVVM -->
+    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
+    <PackageReference Include="Xceed.Wpf.Toolkit" Version="5.1.25458.6678" />
+    <PackageReference Include="ControlzEx" Version="5.0.2" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.11" />
+
+    <!-- Prism -->
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+
+    <!-- Utilities -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+
+    <!-- MonoGame -->
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
+
+    <!-- Localization -->
+    <PackageReference Include="Gu.Localization" Version="6.7.0" />
+    <PackageReference Include="Gu.Wpf.Localization" Version="6.7.0" />
+  </ItemGroup>
+
+  <!-- Project reference to your D3D / rendering module (if you actually use it) -->
+  <ItemGroup>
+    <ProjectReference Include="..\Prism.Modules.D3D\Prism.Modules.D3D.csproj" />
+  </ItemGroup>
+
+  <!-- Resources and content -->
+  <ItemGroup>
+    <Content Include="Content\Fonts\**\*.*" CopyToOutputDirectory="Always" />
+    <Content Include="Effect\Resources\**\*.*" />
+  </ItemGroup>
+
+  <!-- Manifest file -->
+  <ItemGroup>
+    <None Include="app.manifest" />
+  </ItemGroup>
+
+</Project>

@@ -72,7 +72,7 @@ namespace GE2D3D.MapEditor.Utils
         ///   1) If TexturePath is absolute, use as-is.
         ///   2) If Parent.TexturesLocation is set, use that as base.
         ///   3) Else if Parent.DirectoryLocation is set, use "<DirectoryLocation>\textures".
-        ///   4) Else fall back to "<ContentRoot>\Textures".
+        ///   4) Else fall back to global Content\Textures via EditorPaths.
         ///
         /// Texture file gets ".png" appended if no extension.
         /// </summary>
@@ -129,12 +129,10 @@ namespace GE2D3D.MapEditor.Utils
                 }
                 else
                 {
-                    // 3) global game Content\Textures
-                    baseDir = Path.Combine(EditorPaths.ContentRoot, "Textures");
+                    // 3) global game Content\Textures (under Documents\MapEditor\Content\Textures)
+                    baseDir = EditorPaths.GetTexturesFolder();
                 }
 
-                // baseDir is guaranteed non-null by the if/else-if/else above,
-                // but we still null-coalesce to keep the compiler happy.
                 primaryPath = Path.Combine(baseDir ?? EditorPaths.ContentRoot, texName);
             }
 
@@ -255,8 +253,7 @@ namespace GE2D3D.MapEditor.Utils
             {
                 if (pixels[i] == Color.Magenta)
                 {
-                    // MonoGame has Color.Transparent, not TransparentBlack
-                    pixels[i] = Color.Transparent; // or new Color(0, 0, 0, 0);
+                    pixels[i] = Color.Transparent;
                 }
             }
 

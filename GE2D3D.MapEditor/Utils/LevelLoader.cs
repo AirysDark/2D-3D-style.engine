@@ -13,9 +13,7 @@ namespace GE2D3D.MapEditor.Utils
     {
         public static LevelInfo Load(string text, string path)
         {
-            // ----------------------------------------------------------------
             // Safety: if text is null/empty, return an "empty" level instead of NRE
-            // ----------------------------------------------------------------
             if (string.IsNullOrWhiteSpace(text))
             {
                 Logger.Log(LogType.Error, $"LevelLoader.Load: empty text for path '{path}'");
@@ -63,187 +61,200 @@ namespace GE2D3D.MapEditor.Utils
 
                 try
                 {
-                    // Take a copy so we don't mangle the original
-                    var currLine = line;
-
-                    // Basic sanity ? must have at least one '{'
-                    var firstBraceIndex = currLine.IndexOf("{", StringComparison.Ordinal);
-                    if (firstBraceIndex < 0)
+                    // Match the VB logic:
+                    // line = line.Remove(0, line.IndexOf("{") + 2)
+                    var firstBraceIndex = line.IndexOf("{", StringComparison.Ordinal);
+                    if (firstBraceIndex < 0 || firstBraceIndex + 2 >= line.Length)
                         continue;
 
-                    // Strip everything up to `{` + the " character (like original code did)
-                    if (firstBraceIndex + 2 > currLine.Length)
-                        continue;
-
-                    var working = currLine.Remove(0, firstBraceIndex + 2);
-
-                    // Now strip until "[" and final "}}"
-                    var idxOpenBracket = working.IndexOf("[", StringComparison.Ordinal);
-                    var idxLast = working.LastIndexOf("}}", StringComparison.Ordinal);
-
-                    if (idxOpenBracket < 0 || idxLast < 0 || idxLast <= idxOpenBracket)
-                        continue;
-
-                    if (idxOpenBracket + 1 > working.Length || working.Length - 3 < 0)
-                        continue;
-
-                    working = working.Remove(0, idxOpenBracket + 1);
-                    working = working.Remove(working.Length - 3, 3);
-
-                    var tags = GetTags(working);
+                    var afterBrace = line.Substring(firstBraceIndex + 2);
+                    var lower = afterBrace.ToLowerInvariant();
 
                     LevelTagType tagType = LevelTagType.None;
-                    var lower = currLine.ToLowerInvariant();
 
-                    // ----------------- STRUCTURE -----------------
-                    if (lower.StartsWith(@"structure""", StringComparison.Ordinal))
-                    {
+                    // ----------------- TYPE DETECTION (VB-style) -----------------
+                    if (lower.StartsWith(@"structure"""))
                         tagType = LevelTagType.Structure;
-
-                        var map = tags.TagExists("map") ? tags.GetTag<string>("map") : null;
-                        var offsetArray = tags.TagExists("offset") ? tags.GetTag<float[]>("offset") : null;
-                        var rotation = tags.TagExists("Rotation") ? tags.GetTag<int>("Rotation") : -1;
-                        var addNPC = tags.TagExists("AddNPC") && tags.GetTag<bool>("AddNPC");
-
-                        if (!string.IsNullOrEmpty(map) && offsetArray != null && offsetArray.Length >= 3)
-                        {
-                            structures.Add(new StructureInfo
-                            {
-                                Map = map,
-                                Offset = new Vector3(offsetArray[0], offsetArray[1], offsetArray[2]),
-                                Rotation = rotation,
-                                AddNPC = addNPC
-                            });
-                        }
-                        else
-                        {
-                            Logger.Log(LogType.Info,
-                                $"LevelLoader: invalid structure tag in '{path}' line {i + 1}");
-                        }
-                    }
-                    // ----------------- ENTITY -----------------
-                    else if (lower.StartsWith(@"entity""", StringComparison.Ordinal))
-                    {
+                    else if (lower.StartsWith(@"entity"""))
                         tagType = LevelTagType.Entity;
-                        try
-                        {
-                            var loaded = TagsLoader.LoadEntity(tags);
-                            if (loaded != null)
-                                entities.AddRange(loaded);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Log(LogType.Error,
-                                $"LevelLoader: exception in LoadEntity at '{path}' line {i + 1}: {ex.Message}");
-                        }
-                    }
-                    // ----------------- FLOOR -----------------
-                    else if (lower.StartsWith(@"floor""", StringComparison.Ordinal))
-                    {
+                    else if (lower.StartsWith(@"floor"""))
                         tagType = LevelTagType.Floor;
-                        try
-                        {
-                            var loaded = TagsLoader.LoadFloor(tags);
-                            if (loaded != null)
-                                entities.AddRange(loaded);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Log(LogType.Error,
-                                $"LevelLoader: exception in LoadFloor at '{path}' line {i + 1}: {ex.Message}");
-                        }
-                    }
-                    // ----------------- ENTITYFIELD -----------------
-                    else if (lower.StartsWith(@"entityfield""", StringComparison.Ordinal))
-                    {
+                    else if (lower.StartsWith(@"entityfield"""))
                         tagType = LevelTagType.EntityField;
-                        try
-                        {
-                            var loaded = TagsLoader.LoadEntityField(tags);
-                            if (loaded != null)
-                                entities.AddRange(loaded);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Log(LogType.Error,
-                                $"LevelLoader: exception in LoadEntityField at '{path}' line {i + 1}: {ex.Message}");
-                        }
-                    }
-                    // ----------------- LEVEL -----------------
-                    else if (lower.StartsWith(@"level""", StringComparison.Ordinal))
-                    {
+                    else if (lower.StartsWith(@"level"""))
                         tagType = LevelTagType.Level;
-                        levelTags = new LevelTags(tags);
-                    }
-                    // ----------------- ACTIONS -----------------
-                    else if (lower.StartsWith(@"actions""", StringComparison.Ordinal))
-                    {
+                    else if (lower.StartsWith(@"actions"""))
                         tagType = LevelTagType.LevelActions;
-                        actionTags = new LevelTags(tags);
-                    }
-                    // ----------------- NPC -----------------
-                    else if (lower.StartsWith(@"npc""", StringComparison.Ordinal))
-                    {
+                    else if (lower.StartsWith(@"npc"""))
                         tagType = LevelTagType.NPC;
-                        // NPC loading was commented out in original source;
-                        // leaving it disabled to avoid untested behavior.
-                        // entities.Add(TagsLoader.LoadNpc(tags));
-                    }
-                    // ----------------- SHADER -----------------
-                    else if (lower.StartsWith(@"shader""", StringComparison.Ordinal))
-                    {
+                    else if (lower.StartsWith(@"shader"""))
                         tagType = LevelTagType.Shader;
-                        try
-                        {
-                            shader = TagsLoader.LoadShader(tags) ?? new ShaderInfo();
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Log(LogType.Error,
-                                $"LevelLoader: exception in LoadShader at '{path}' line {i + 1}: {ex.Message}");
-                        }
-                    }
-                    // ----------------- OFFSETMAP -----------------
-                    else if (lower.StartsWith(@"offsetmap""", StringComparison.Ordinal))
-                    {
+                    else if (lower.StartsWith(@"offsetmap"""))
                         tagType = LevelTagType.OffsetMap;
-
-                        var map = tags.TagExists("map") ? tags.GetTag<string>("map") : null;
-                        var offsetArray = tags.TagExists("offset") ? tags.GetTag<int[]>("offset") : null;
-
-                        if (!string.IsNullOrEmpty(map) && offsetArray != null && offsetArray.Length >= 2)
-                        {
-                            Vector3 offset;
-                            if (offsetArray.Length == 2)
-                                offset = new Vector3(offsetArray[0], offsetArray[1], 0);
-                            else
-                                offset = new Vector3(offsetArray[0], offsetArray[1], offsetArray[2]);
-
-                            offsetMaps.Add(new OffsetMapInfo
-                            {
-                                Map = map,
-                                Offset = offset
-                            });
-                        }
-                        else
-                        {
-                            Logger.Log(LogType.Info,
-                                $"LevelLoader: invalid offsetmap tag in '{path}' line {i + 1}");
-                        }
-                    }
-                    // ----------------- BACKDROP -----------------
-                    else if (lower.StartsWith(@"backdrop""", StringComparison.Ordinal))
-                    {
+                    else if (lower.StartsWith(@"backdrop"""))
                         tagType = LevelTagType.Backdrop;
-                        try
-                        {
-                            backdrop = TagsLoader.LoadBackdrop(tags) ?? new BackdropInfo();
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Log(LogType.Error,
-                                $"LevelLoader: exception in LoadBackdrop at '{path}' line {i + 1}: {ex.Message}");
-                        }
+
+                    if (tagType == LevelTagType.None)
+                        continue;
+
+                    // ----------------- CUT OUT TAG BODY (VB-style) -----------------
+                    // VB:
+                    // line = line.Remove(0, line.IndexOf("[") + 1)
+                    // line = line.Remove(line.Length - 3, 3)
+                    var idxOpenBracket = afterBrace.IndexOf("[", StringComparison.Ordinal);
+                    if (idxOpenBracket < 0 || idxOpenBracket + 1 >= afterBrace.Length)
+                        continue;
+
+                    var tagBody = afterBrace.Substring(idxOpenBracket + 1);
+                    if (tagBody.Length < 3)
+                        continue;
+
+                    // strip trailing "]}}"
+                    tagBody = tagBody.Substring(0, tagBody.Length - 3);
+
+                    var tags = GetTags(tagBody);
+
+                    // ----------------- HANDLE EACH TAG TYPE -----------------
+                    switch (tagType)
+                    {
+                        // STRUCTURE: keep as metadata for now (editor can choose to expand later)
+                        case LevelTagType.Structure:
+                            {
+                                var map = tags.TagExists("map") ? tags.GetTag<string>("map") : null;
+                                var offsetArray = tags.TagExists("offset") ? tags.GetTag<float[]>("offset") : null;
+                                var rotation = tags.TagExists("Rotation") ? tags.GetTag<int>("Rotation") : -1;
+                                var addNPC = tags.TagExists("AddNPC") && tags.GetTag<bool>("AddNPC");
+
+                                if (!string.IsNullOrEmpty(map) && offsetArray != null && offsetArray.Length >= 3)
+                                {
+                                    structures.Add(new StructureInfo
+                                    {
+                                        Map = map,
+                                        Offset = new Vector3(offsetArray[0], offsetArray[1], offsetArray[2]),
+                                        Rotation = rotation,
+                                        AddNPC = addNPC
+                                    });
+                                }
+                                else
+                                {
+                                    Logger.Log(LogType.Info,
+                                        $"LevelLoader: invalid structure tag in '{path}' line {i + 1}");
+                                }
+
+                                break;
+                            }
+
+                        case LevelTagType.Entity:
+                            try
+                            {
+                                var loaded = TagsLoader.LoadEntity(tags);
+                                if (loaded != null)
+                                    entities.AddRange(loaded);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(LogType.Error,
+                                    $"LevelLoader: exception in LoadEntity at '{path}' line {i + 1}: {ex.Message}");
+                            }
+
+                            break;
+
+                        case LevelTagType.Floor:
+                            try
+                            {
+                                var loaded = TagsLoader.LoadFloor(tags);
+                                if (loaded != null)
+                                    entities.AddRange(loaded);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(LogType.Error,
+                                    $"LevelLoader: exception in LoadFloor at '{path}' line {i + 1}: {ex.Message}");
+                            }
+
+                            break;
+
+                        case LevelTagType.EntityField:
+                            try
+                            {
+                                var loaded = TagsLoader.LoadEntityField(tags);
+                                if (loaded != null)
+                                    entities.AddRange(loaded);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(LogType.Error,
+                                    $"LevelLoader: exception in LoadEntityField at '{path}' line {i + 1}: {ex.Message}");
+                            }
+
+                            break;
+
+                        case LevelTagType.Level:
+                            levelTags = new LevelTags(tags);
+                            break;
+
+                        case LevelTagType.LevelActions:
+                            actionTags = new LevelTags(tags);
+                            break;
+
+                        case LevelTagType.NPC:
+                            // NPC loading is disabled in the original C# loader too
+                            // (kept here for parity with the old behaviour)
+                            break;
+
+                        case LevelTagType.Shader:
+                            try
+                            {
+                                shader = TagsLoader.LoadShader(tags) ?? new ShaderInfo();
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(LogType.Error,
+                                    $"LevelLoader: exception in LoadShader at '{path}' line {i + 1}: {ex.Message}");
+                            }
+
+                            break;
+
+                        case LevelTagType.OffsetMap:
+                            {
+                                var map = tags.TagExists("map") ? tags.GetTag<string>("map") : null;
+                                var offsetArray = tags.TagExists("offset") ? tags.GetTag<int[]>("offset") : null;
+
+                                if (!string.IsNullOrEmpty(map) && offsetArray != null && offsetArray.Length >= 2)
+                                {
+                                    Vector3 offset;
+                                    if (offsetArray.Length == 2)
+                                        offset = new Vector3(offsetArray[0], offsetArray[1], 0);
+                                    else
+                                        offset = new Vector3(offsetArray[0], offsetArray[1], offsetArray[2]);
+
+                                    offsetMaps.Add(new OffsetMapInfo
+                                    {
+                                        Map = map,
+                                        Offset = offset
+                                    });
+                                }
+                                else
+                                {
+                                    Logger.Log(LogType.Info,
+                                        $"LevelLoader: invalid offsetmap tag in '{path}' line {i + 1}");
+                                }
+
+                                break;
+                            }
+
+                        case LevelTagType.Backdrop:
+                            try
+                            {
+                                backdrop = TagsLoader.LoadBackdrop(tags) ?? new BackdropInfo();
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(LogType.Error,
+                                    $"LevelLoader: exception in LoadBackdrop at '{path}' line {i + 1}: {ex.Message}");
+                            }
+
+                            break;
                     }
 
                     list.Add(new LevelTag(tagType, tags));

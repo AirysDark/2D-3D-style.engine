@@ -1,77 +1,155 @@
-﻿using System;
+using System;
 using System.IO;
-using System.Reflection;
 
 namespace GE2D3D.MapEditor.Utils
 {
     public static class EditorPaths
     {
-        // Optional override from "Set Game Root..." menu
-        private static string _gameRootOverride;
+        // Manual override set through the editor UI ("Set Project Root...")
+        private static string _projectRootOverride;
 
         /// <summary>
-        /// Allow the user to override the detected P3D game root.
-        /// Expects the folder that contains Content\ (i.e. ...\P3D).
+        /// Set the project root explicitly.
+        /// This folder MUST contain the Content/ folder.
         /// </summary>
-        public static void SetGameRoot(string path)
+        public static void SetProjectRoot(string path)
         {
             if (!string.IsNullOrWhiteSpace(path) && Directory.Exists(path))
             {
-                _gameRootOverride = path;
+                _projectRootOverride = path;
             }
         }
 
         /// <summary>
-        /// Returns the guessed P3D game root folder (where Content/ lives).
-        /// You can hardcode your install path here if you want.
+        /// Backwards-compatible alias for older code paths. 
+        /// "Game root" and "project root" are the same concept here.
         /// </summary>
-        public static string GetGameRoot()
+        public static void SetGameRoot(string path)
         {
-            // 0) If user picked a root via "Set Game Root...", use that
-            if (!string.IsNullOrWhiteSpace(_gameRootOverride) &&
-                Directory.Exists(_gameRootOverride))
-            {
-                return _gameRootOverride;
-            }
-
-            // 1) Hardcoded override: CHANGE THIS TO YOUR REAL GAME PATH IF YOU WANT
-            var hardcoded = @"C:\p3d\P3D-Legacy\P3D";
-            if (Directory.Exists(hardcoded))
-                return hardcoded;
-
-            // 2) Try relative to the editor EXE: ..\P3D
-            var exeDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "";
-            var candidate = Path.GetFullPath(Path.Combine(exeDir, @"..\P3D"));
-            if (Directory.Exists(candidate))
-                return candidate;
-
-            // 3) Fallback: just use the EXE directory
-            return exeDir;
+            SetProjectRoot(path);
         }
 
         /// <summary>
-        /// Root of the P3D Content/ folder (P3D\Content).
+        /// Returns the detected Project Root folder.
+        /// Priority:
+        /// 1) User override (SetProjectRoot / SetGameRoot)
+        /// 2) Auto-detect a folder containing a Content/ subfolder, starting from EXE and walking upwards
+        /// 3) Fallback = EXE directory (no more Documents\MapEditor)
+        /// </summary>
+        public static string GetProjectRoot()
+        {
+            // 1) User override
+            if (!string.IsNullOrWhiteSpace(_projectRootOverride) &&
+                Directory.Exists(_projectRootOverride))
+            {
+                return _projectRootOverride;
+            }
+
+            // 2) Try to auto-detect from the EXE location upwards
+            try
+            {
+                var exeDir = AppDomain.CurrentDomain.BaseDirectory;
+                var dir = exeDir;
+
+                while (!string.IsNullOrEmpty(dir))
+                {
+                    var contentCandidate = Path.Combine(dir, "Content");
+                    if (Directory.Exists(contentCandidate))
+                    {
+                        // Found a folder with a Content/ subfolder -> treat that as project root
+                        return dir;
+                    }
+
+                    dir = Path.GetDirectoryName(dir);
+                }
+
+                // 3) Fallback: use EXE directory as project root (no Documents)
+                return exeDir.TrimEnd('\\', '/');
+            }
+            catch
+            {
+                // Absolute worst-case fallback: EXE base directory
+                var exeDir = AppDomain.CurrentDomain.BaseDirectory;
+                return exeDir.TrimEnd('\\', '/');
+            }
+        }
+
+        /// <summary>
+        /// Returns the Content/ folder under the project root.
         /// </summary>
         public static string GetContentRoot()
         {
-            var root = GetGameRoot();
+            var root = GetProjectRoot();
             var content = Path.Combine(root, "Content");
-            return Directory.Exists(content) ? content : root;
+
+            // Ensure Content exists
+            if (!Directory.Exists(content))
+                Directory.CreateDirectory(content);
+
+            return content;
         }
 
-        /// <summary>
-        /// For legacy code that expects a static ContentRoot property.
-        /// </summary>
         public static string ContentRoot => GetContentRoot();
 
         /// <summary>
-        /// Default Maps folder (P3D\Content\Maps).
+        /// Returns Content/Data/maps/
         /// </summary>
         public static string GetMapsFolder()
         {
             var content = GetContentRoot();
-            var maps = Path.Combine(content, "Maps");
-            return Directory.Exists(maps) ? maps : content;
+            var maps = Path.Combine(content, "Data", "maps");
+
+            // Ensure directory exists
+            if (!Directory.Exists(maps))
+                Directory.CreateDirectory(maps);
+
+            return maps;
+        }
+
+        public static string GetTexturesFolder()
+        {
+            var folder = Path.Combine(GetContentRoot(), "Textures");
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            return folder;
+        }
+
+        public static string GetBackdropsFolder()
+        {
+            var folder = Path.Combine(GetContentRoot(), "Data", "Backdrops");
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            return folder;
+        }
+
+        public static string GetSongsFolder()
+        {
+            var folder = Path.Combine(GetContentRoot(), "Songs");
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            return folder;
+        }
+
+        /// <summary>
+        /// Returns Content/Textures/NPC/
+        /// </summary>
+        public static string GetNpcFolder()
+        {
+            // NPC textures live under Textures/NPC
+            var folder = Path.Combine(GetTexturesFolder(), "NPC");
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            return folder;
+        }
+
+        public static string GetEffectsFolder()
+        {
+            var folder = Path.Combine(GetContentRoot(), "Effects");
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            return folder;
+        }
+
+        public static string GetSkyDomeFolder()
+        {
+            var folder = Path.Combine(GetContentRoot(), "SkyDomeResource");
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+            return folder;
         }
     }
 }

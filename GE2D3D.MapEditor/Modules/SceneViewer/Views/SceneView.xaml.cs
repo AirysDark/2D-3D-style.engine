@@ -69,7 +69,7 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
         {
             _bootstrap = bootstrap ?? throw new ArgumentNullException(nameof(bootstrap));
 
-            // AA combo was removed from the toolbar, this is now a no-op.
+            // Sync AA combo to current AA mode
             SyncAaComboFromSettings();
 
             // If a level was requested before bootstrap was ready, load it now.
@@ -111,27 +111,32 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
             LoadLevel(levelInfo);
         }
 
-        /// <summary>
-        /// AA combo has been removed from the toolbar; keep this as a no-op so
-        /// existing calls remain valid.
+                /// <summary>
+        /// Anti-aliasing combo box was removed from the toolbar. This helper is
+        /// used by the main window Toolbox → Anti-Aliasing menu to forward the
+        /// chosen mode into the renderer.
         /// </summary>
-        private void SyncAaComboFromSettings()
-        {
-            // AA dropdown was removed; nothing to sync anymore.
-        }
-
-        // ---------------------------------------------------------
-        // Toolbar handlers (wired from XAML)
-        // ---------------------------------------------------------
-
-        public void SetAntiAliasingFromMenu(Components.Render.AntiAliasing mode)
+        public void SetAntiAliasingFromMenu(AntiAliasing mode)
         {
             if (_bootstrap == null)
                 return;
 
             _bootstrap.SetAntiAliasing(mode);
-            // No AA combo anymore, so nothing additional to sync.
         }
+
+        /// <summary>
+        /// Legacy method kept so existing calls from AttachBootstrap / LoadLevel
+        /// remain valid. With the AA combo removed, this becomes a no-op.
+        /// </summary>
+        private void SyncAaComboFromSettings()
+        {
+            // No in-view AA combo any more – AA is driven from the Toolbox menu.
+        }
+
+
+        // ---------------------------------------------------------
+        // Toolbar handlers (wired from XAML)
+        // ---------------------------------------------------------
 
         private void OnAaChanged(object sender, SelectionChangedEventArgs e)
         {

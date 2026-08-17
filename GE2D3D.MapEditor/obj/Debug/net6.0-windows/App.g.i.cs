@@ -53,7 +53,7 @@ namespace GE2D3D.MapEditor {
         /// </summary>
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "9.0.11.0")]
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "9.0.17.0")]
         public static void Main() {
             GE2D3D.MapEditor.App app = new GE2D3D.MapEditor.App();
             app.Run();

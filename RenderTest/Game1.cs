@@ -1,5 +1,7 @@
-﻿using System;
+using System;
 using System.IO;
+using System.Diagnostics;
+using WinForms = System.Windows.Forms; // OpenFileDialog
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using GE2D3D.MapEditor.Renders;
 using GE2D3D.MapEditor.Components.Input;
 using GE2D3D.MapEditor.Data;
+using GE2D3D.MapEditor.Utils;   // EditorPaths + MapAssetScanner
 
 namespace RenderTest
 {
@@ -66,6 +69,27 @@ namespace RenderTest
             Graphics.ApplyChanges();
         }
 
+        private static string GetLastMapPathFile()
+        {
+            var root = EditorPaths.GetProjectRoot();
+            return Path.Combine(root, "last_map.txt");
+        }
+
+        private static void SaveLastMapPath(string path)
+        {
+            try
+            {
+                var file = GetLastMapPathFile();
+                Directory.CreateDirectory(Path.GetDirectoryName(file)!);
+                File.WriteAllText(file, path ?? string.Empty);
+                Debug.WriteLine($"[RenderTest] Saved last map path: {path}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[RenderTest] Failed to save last_map.txt: {ex.Message}");
+            }
+        }
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// </summary>
@@ -75,14 +99,68 @@ namespace RenderTest
             Graphics.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
             Graphics.ApplyChanges();
 
-            // Pick whichever map you want to test:
-            var path = @"C:\GitHub\Maps\Goldenrod\goldenrod.dat";
-            //var path = @"C:\GitHub\Maps\YourRoom\yourroom.dat";
-            //var path = @"C:\GitHub\Maps\UnderwaterCave\main.dat";
-            //var path = @"C:\GitHub\Maps\Kolben\devoffices.dat";
+            string? path = null;
 
-            if (!File.Exists(path))
-                throw new FileNotFoundException("Test map not found", path);
+            // -------------------------------------------------------------
+            // 1) Try to use the last map loaded in the editor (last_map.txt)
+            // -------------------------------------------------------------
+            try
+            {
+                var lastMapFile = GetLastMapPathFile();
+                if (File.Exists(lastMapFile))
+                {
+                    var storedPath = File.ReadAllText(lastMapFile).Trim();
+                    if (!string.IsNullOrWhiteSpace(storedPath) && File.Exists(storedPath))
+                    {
+                        path = storedPath;
+                        Debug.WriteLine($"[RenderTest] Using last editor map: {path}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[RenderTest] Failed to read last_map.txt: {ex.Message}");
+            }
+
+            // -------------------------------------------------------------
+            // 2) If that failed, show OpenFileDialog at Content/Data/maps
+            // -------------------------------------------------------------
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                var mapsRoot = EditorPaths.GetMapsFolder();
+
+                using (var dialog = new WinForms.OpenFileDialog())
+                {
+                    dialog.InitialDirectory = mapsRoot;
+                    dialog.Filter = "Map files (*.dat)|*.dat|All files (*.*)|*.*";
+                    dialog.Title = "Select a test map";
+
+                    if (dialog.ShowDialog() == WinForms.DialogResult.OK)
+                    {
+                        path = dialog.FileName;
+                        SaveLastMapPath(path);
+                    }
+                    else
+                    {
+                        // User cancelled ? close the test app cleanly
+                        Exit();
+                        return;
+                    }
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+                throw new FileNotFoundException("Test map not found.", path ?? string.Empty);
+
+            // Optional: run a single-map asset scan + JSON report
+            try
+            {
+                MapAssetScanner.ScanSingleMapAndSave(path);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[MapAssetScanner] Error scanning assets for '{path}': {ex.Message}");
+            }
 
             // Build the whole render pipeline (camera, selector, render, debug, camera controller)
             _bootstrap = RenderBootstrap.FromMapPath(this, path);

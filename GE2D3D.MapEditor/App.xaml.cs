@@ -44,23 +44,29 @@ namespace GE2D3D.MapEditor
             Translator.Culture = match ?? fallback;
         }
 
+        /// <summary>
+        /// Creates the main shell window for the editor.
+        /// </summary>
         protected override Window CreateShell()
         {
-            // If your Prism version doesn't expose a Container property,
-            // just construct the shell directly.
+            // For now, construct the shell directly.
+            // If you later want DI-based construction, we can switch to resolving via the container.
             return new MainWindow();
-            // If later you want DI, we can switch to a ContainerLocator-based resolve.
         }
 
+        /// <summary>
+        /// Register services, singletons and other dependencies here.
+        /// </summary>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Register services, view models, etc. here when needed
-            // e.g. containerRegistry.RegisterSingleton<IGraphicsDeviceService, GraphicsDeviceServiceDX>();
+            // Example for later:
+            // containerRegistry.RegisterSingleton<IMyService, MyService>();
         }
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
+            // Place any startup logic here if needed (e.g., reading last project root, etc.)
         }
     }
 }

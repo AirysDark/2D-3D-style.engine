@@ -1,0 +1,37 @@
+{
+  "ProjectRoot": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\bin\\Debug\\net6.0-windows\\",
+  "MapsRoot": "C:\\Users\\AirysDark\\source\\GE2D3D-MapEditor\\GE2D3D.MapEditor\\bin\\Debug\\net6.0-windows\\Content\\Data\\maps",
+  "MapsScanned": [
+    "Content\\Data\\maps\\yourroom.dat"
+  ],
+  "MissingMapFiles": [],
+  "TextureFilesUsed": [
+    "Content\\Textures\\House.png",
+    "Content\\Textures\\Lab.png",
+    "Content\\Textures\\Switch.png"
+  ],
+  "MissingTextureFiles": [],
+  "NpcTexturesUsed": [],
+  "MissingNpcTextures": [],
+  "MusicFilesUsed": [
+    "Content\\Songs\\barktown.ogg",
+    "Content\\Songs\\barktown.wav",
+    "Content\\Songs\\barktown.mp3"
+  ],
+  "MissingMusicFiles": [],
+  "ScriptPathsUsed": [
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\tv",
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\bookshelf",
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\townmap",
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\note",
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\donators"
+  ],
+  "MissingScriptPaths": [
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\tv",
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\bookshelf",
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\townmap",
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\note",
+    "Content\\Data\\scripts\\furniture\\barktown\\yourroom\\donators"
+  ],
+  "ReportPath": ""
+}

@@ -9,9 +9,11 @@
     <!-- Keep assembly + root namespace aligned -->
     <AssemblyName>GE2D3D.MapEditor</AssemblyName>
     <RootNamespace>GE2D3D.MapEditor</RootNamespace>
+    <PackageIcon></PackageIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Resources\Icons\P3D-Legacy.ico</ApplicationIcon>
 
     <!-- Optional: explicitly point to your manifest -->
-    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <!-- NuGet Packages -->
@@ -49,10 +51,23 @@
     <Content Include="Content\Fonts\**\*.*" CopyToOutputDirectory="Always" />
     <Content Include="Effect\Resources\**\*.*" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Icons\P3D-Legacy.ico" />
+  </ItemGroup>
 
   <!-- Manifest file -->
   <ItemGroup>
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Resources\Icons\P3D-Legacy.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Resources\Icons\P3D-Legacy.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

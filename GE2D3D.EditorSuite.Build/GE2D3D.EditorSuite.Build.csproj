@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+
+    <AssemblyName>GE2D3D.EditorSuite</AssemblyName>
+    <RootNamespace>GE2D3D.EditorSuite</RootNamespace>
+
+    <!-- Let MSBuild use the default:
+         GE2D3D.EditorSuite\bin\$(Configuration)\ -->
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <!-- Tell this project "you depend on these three" -->
+  <ItemGroup>
+    <ProjectReference Include="..\GE2D3D.MapEditor\GE2D3D.MapEditor.csproj" />
+    <ProjectReference Include="..\RenderTest\RenderTest.csproj" />
+    <ProjectReference Include="..\Prism.Modules.D3D\Prism.Modules.D3D.csproj" />
+  </ItemGroup>
+
+</Project>
