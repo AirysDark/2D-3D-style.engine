@@ -1,1 +1,0 @@
-C:\Users\AirysDark\source\GE2D3D-MapEditor\GE2D3D.EditorSuite.Build\bin\Debug\net6.0-windows\Content\Data\maps\test.dat
