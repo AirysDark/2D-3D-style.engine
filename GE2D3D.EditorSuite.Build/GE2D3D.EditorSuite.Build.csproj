@@ -9,6 +9,7 @@
 
     <AssemblyName>GE2D3D.EditorSuite</AssemblyName>
     <RootNamespace>GE2D3D.EditorSuite</RootNamespace>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ApplicationIcon></ApplicationIcon>
   </PropertyGroup>
 
