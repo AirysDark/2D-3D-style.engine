@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GE2D3D.MapEditor.Data
@@ -27,20 +27,15 @@ namespace GE2D3D.MapEditor.Data
         public string SurfingBattleMapData { get; set; }
 
         public List<EntityInfo> Entities { get; }
+        public List<EntityNPCInfo> NPCs { get; }
         public List<StructureInfo> Structures { get; }
         public List<OffsetMapInfo> OffsetMaps { get; }
         public ShaderInfo Shader { get; }
         public BackdropInfo Backdrop { get; }
-
         public string Path { get; }
 
-        /// <summary>Folder containing the loaded map file.</summary>
         public string DirectoryLocation => System.IO.Path.GetDirectoryName(Path) ?? string.Empty;
 
-        /// <summary>
-        /// Detects the P3D Content root when a map lives under Content/Data/maps.
-        /// Falls back to the map folder when the map is not in a P3D layout.
-        /// </summary>
         public string ContentRoot
         {
             get
@@ -49,57 +44,36 @@ namespace GE2D3D.MapEditor.Data
                 var mapsDirectory = mapDirectory;
                 var dataDirectory = mapsDirectory.Parent;
                 var contentDirectory = dataDirectory?.Parent;
-
                 if (mapsDirectory.Name.Equals("maps", System.StringComparison.OrdinalIgnoreCase) &&
                     dataDirectory != null && dataDirectory.Name.Equals("Data", System.StringComparison.OrdinalIgnoreCase) &&
                     contentDirectory != null && contentDirectory.Name.Equals("Content", System.StringComparison.OrdinalIgnoreCase))
-                {
                     return contentDirectory.FullName;
-                }
-
                 return DirectoryLocation;
             }
         }
 
-        /// <summary>
-        /// P3D textures live at Content/Textures. For non-P3D projects this preserves
-        /// the previous map-local Textures fallback.
-        /// </summary>
         public string TexturesLocation
         {
             get
             {
                 var p3dTextures = System.IO.Path.Combine(ContentRoot, "Textures");
-                if (Directory.Exists(p3dTextures))
-                    return p3dTextures;
-
-                return System.IO.Path.Combine(DirectoryLocation, "Textures");
+                return Directory.Exists(p3dTextures) ? p3dTextures : System.IO.Path.Combine(DirectoryLocation, "Textures");
             }
         }
 
-        /// <summary>
-        /// P3D map companion files normally live in a folder named after the map:
-        /// Content/Data/maps/BarkTown.dat -> Content/Data/maps/BarkTown/.
-        /// Older flat layouts can still use a Structures folder beside the map.
-        /// </summary>
         public string StructuresLocation
         {
             get
             {
                 var mapName = System.IO.Path.GetFileNameWithoutExtension(Path);
                 var mapCompanionFolder = System.IO.Path.Combine(DirectoryLocation, mapName);
-                if (Directory.Exists(mapCompanionFolder))
-                    return mapCompanionFolder;
-
+                if (Directory.Exists(mapCompanionFolder)) return mapCompanionFolder;
                 var structuresFolder = System.IO.Path.Combine(DirectoryLocation, "Structures");
-                if (Directory.Exists(structuresFolder))
-                    return structuresFolder;
-
-                return DirectoryLocation;
+                return Directory.Exists(structuresFolder) ? structuresFolder : DirectoryLocation;
             }
         }
 
-        public LevelInfo(LevelTags levelTags, string path, LevelTags actionTags, List<EntityInfo> entities, List<StructureInfo> structures, List<OffsetMapInfo> offsetMaps, ShaderInfo shader, BackdropInfo backdrop)
+        public LevelInfo(LevelTags levelTags, string path, LevelTags actionTags, List<EntityInfo> entities, List<EntityNPCInfo> npcs, List<StructureInfo> structures, List<OffsetMapInfo> offsetMaps, ShaderInfo shader, BackdropInfo backdrop)
         {
             Name = levelTags.GetTag<string>("Name");
             MusicLoop = levelTags.GetTag<string>("MusicLoop");
@@ -107,44 +81,22 @@ namespace GE2D3D.MapEditor.Data
             ShowOverworldPokemon = !levelTags.TagExists("OverworldPokemon") || levelTags.GetTag<bool>("OverworldPokemon");
             CurrentRegion = levelTags.TagExists("CurrentRegion") ? levelTags.GetTag<string>("CurrentRegion") : "Johto";
             HiddenAbilityChance = levelTags.TagExists("HiddenAbility") ? levelTags.GetTag<int>("HiddenAbility") : 0;
-
             CanTeleport = actionTags.TagExists("CanTeleport") && actionTags.GetTag<bool>("CanTeleport");
             CanDig = actionTags.TagExists("CanDig") && actionTags.GetTag<bool>("CanDig");
             CanFly = actionTags.TagExists("CanFly") && actionTags.GetTag<bool>("CanFly");
             RideType = actionTags.TagExists("RideType") ? actionTags.GetTag<int>("RideType") : 0;
             EnvironmentType = actionTags.TagExists("EnviromentType") ? actionTags.GetTag<int>("EnviromentType") : 0;
             WeatherType = actionTags.TagExists("Weather") ? actionTags.GetTag<int>("Weather") : 0;
-
-            var lightningExists = actionTags.TagExists("Lightning");
-            var lightingExists = actionTags.TagExists("Lighting");
-            if (lightningExists && lightingExists)
-                LightingType = actionTags.GetTag<int>("Lighting");
-            else if (lightingExists)
-                LightingType = actionTags.GetTag<int>("Lighting");
-            else if (lightningExists)
-                LightingType = actionTags.GetTag<int>("Lightning");
-            else
-                LightingType = 1;
-
+            LightingType = actionTags.TagExists("Lighting") ? actionTags.GetTag<int>("Lighting") : actionTags.TagExists("Lightning") ? actionTags.GetTag<int>("Lightning") : 1;
             IsDark = actionTags.TagExists("IsDark") && actionTags.GetTag<bool>("IsDark");
             IsSafariZone = actionTags.TagExists("IsSafariZone") && actionTags.GetTag<bool>("IsSafariZone");
-
-            if (actionTags.TagExists("BugCatchingContest"))
-            {
-                IsBugCatchingContest = true;
-                BugCatchingContestData = actionTags.GetTag<string>("BugCatchingContest");
-            }
-            else
-            {
-                IsBugCatchingContest = false;
-                BugCatchingContestData = "";
-            }
-
+            IsBugCatchingContest = actionTags.TagExists("BugCatchingContest");
+            BugCatchingContestData = IsBugCatchingContest ? actionTags.GetTag<string>("BugCatchingContest") : "";
             MapScript = actionTags.TagExists("MapScript") ? actionTags.GetTag<string>("MapScript") : "";
             BattleMapData = actionTags.TagExists("BattleMap") ? actionTags.GetTag<string>("BattleMap") : "";
             SurfingBattleMapData = actionTags.TagExists("SurfingBattleMap") ? actionTags.GetTag<string>("SurfingBattleMap") : "";
-
             Entities = entities;
+            NPCs = npcs;
             Structures = structures;
             OffsetMaps = offsetMaps;
             Shader = shader;
