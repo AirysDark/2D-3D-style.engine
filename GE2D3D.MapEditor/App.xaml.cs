@@ -13,7 +13,6 @@ namespace GE2D3D.MapEditor
     /// </summary>
     public partial class App : PrismApplication
     {
-        // Static constructor runs once before anything else
         static App()
         {
             if (!Translator.Cultures.Any())
@@ -32,17 +31,11 @@ namespace GE2D3D.MapEditor
             Translator.Culture = match ?? fallback;
         }
 
-        /// <summary>
-        /// Creates the main shell window for the editor.
-        /// </summary>
         protected override Window CreateShell()
         {
             return new MainWindow();
         }
 
-        /// <summary>
-        /// Register services, singletons and other dependencies here.
-        /// </summary>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
         }
@@ -53,7 +46,7 @@ namespace GE2D3D.MapEditor
         /// </summary>
         private static void EnsureContentStructure()
         {
-            var contentRoot = Path.Combine(AppContext.BaseDirectory, "Content");
+            var contentRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content");
 
             string[] folders =
             {
@@ -63,7 +56,6 @@ namespace GE2D3D.MapEditor
                 "Data/Items",
                 "Data/Moves",
                 "Data/Types",
-                "Data/Maps",
                 "Effects",
                 "GUI",
                 "Items",
