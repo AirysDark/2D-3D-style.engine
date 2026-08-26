@@ -10,7 +10,6 @@
         Height="720"
         WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
-
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" Command="{Binding NewLevelCommand}" />
@@ -19,7 +18,6 @@
                 <Separator/>
                 <MenuItem Header="E_xit" Click="OnExitClick" />
             </MenuItem>
-
             <MenuItem Header="_Toolbox">
                 <MenuItem Header="_Skybox">
                     <MenuItem Header="Skybox _Inner..." Command="{Binding ChooseSkyboxInnerTextureCommand}" />
@@ -30,6 +28,7 @@
                 <MenuItem Header="_Selection" Click="OnSelectionMenuClick" />
                 <MenuItem Header="_Entities" Click="OnEntitiesMenuClick" />
                 <MenuItem Header="_Assets" Click="OnAssetsMenuClick" />
+                <MenuItem Header="_Map Diagnostics" Click="OnMapDiagnosticsMenuClick" />
                 <Separator/>
                 <MenuItem Header="_Render Test">
                     <MenuItem Header="_Run With Last Loaded Map" Click="OnRenderTestRunLastMapClick" />
@@ -53,29 +52,11 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem><TextBlock Text="{Binding StatusCameraText}" Margin="4,0" VerticalAlignment="Center" /></StatusBarItem>
             <StatusBarItem><TextBlock Text="{Binding StatusSelectionText}" Margin="4,0" VerticalAlignment="Center" /></StatusBarItem>
             <StatusBarItem HorizontalAlignment="Right"><TextBlock Text="{Binding StatusMessage}" Margin="4,0" VerticalAlignment="Center" /></StatusBarItem>
         </StatusBar>
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="190" />
-            </Grid.RowDefinitions>
-
-            <views:SceneView x:Name="SceneViewControl" Grid.Row="0" />
-
-            <Border Grid.Row="1" BorderThickness="1" BorderBrush="Gray" Background="#1E1E1E" Padding="6">
-                <DockPanel>
-                    <TextBlock DockPanel.Dock="Top" Text="Diagnostics / Map Load Log" Foreground="White" FontWeight="Bold" Margin="0,0,0,4" />
-                    <TextBox x:Name="DiagnosticsTextBox" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True"
-                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                             Background="#111111" Foreground="White" BorderThickness="0" FontFamily="Consolas" />
-                </DockPanel>
-            </Border>
-        </Grid>
+        <views:SceneView x:Name="SceneViewControl" />
     </DockPanel>
 </Window>
