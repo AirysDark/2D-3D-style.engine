@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using Gu.Localization;
@@ -15,7 +16,6 @@ namespace GE2D3D.MapEditor
         // Static constructor runs once before anything else
         static App()
         {
-            // If Gu.Localization has no registered cultures, just use system UI culture
             if (!Translator.Cultures.Any())
             {
                 Translator.Culture = CultureInfo.CurrentUICulture;
@@ -23,21 +23,9 @@ namespace GE2D3D.MapEditor
             }
 
             var system = CultureInfo.CurrentUICulture;
-
-            // Try exact match first
-            var match = Translator.Cultures
-                                  .FirstOrDefault(c => c.Name == system.Name);
-
-            // Then try same language (en, de, etc.)
-            if (match == null)
-            {
-                match = Translator.Cultures
-                                  .FirstOrDefault(c =>
-                                      c.TwoLetterISOLanguageName ==
-                                      system.TwoLetterISOLanguageName);
-            }
-
-            // Fallback: en-US if available, otherwise first culture
+            var match = Translator.Cultures.FirstOrDefault(c => c.Name == system.Name)
+                        ?? Translator.Cultures.FirstOrDefault(c =>
+                            c.TwoLetterISOLanguageName == system.TwoLetterISOLanguageName);
             var fallback = Translator.Cultures.FirstOrDefault(c => c.Name == "en-US")
                            ?? Translator.Cultures.First();
 
@@ -49,8 +37,6 @@ namespace GE2D3D.MapEditor
         /// </summary>
         protected override Window CreateShell()
         {
-            // For now, construct the shell directly.
-            // If you later want DI-based construction, we can switch to resolving via the container.
             return new MainWindow();
         }
 
@@ -59,14 +45,47 @@ namespace GE2D3D.MapEditor
         /// </summary>
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Example for later:
-            // containerRegistry.RegisterSingleton<IMyService, MyService>();
+        }
+
+        /// <summary>
+        /// Creates the P3D-compatible content layout used by the current map importer.
+        /// Existing files are never overwritten.
+        /// </summary>
+        private static void EnsureContentStructure()
+        {
+            var contentRoot = Path.Combine(AppContext.BaseDirectory, "Content");
+
+            string[] folders =
+            {
+                "Data",
+                "Data/maps",
+                "Data/Scripts",
+                "Data/Items",
+                "Data/Moves",
+                "Data/Types",
+                "Data/Maps",
+                "Effects",
+                "GUI",
+                "Items",
+                "Localization",
+                "Pokemon",
+                "SkyDomeResource",
+                "Songs",
+                "Sounds",
+                "Textures"
+            };
+
+            Directory.CreateDirectory(contentRoot);
+            foreach (var folder in folders)
+            {
+                Directory.CreateDirectory(Path.Combine(contentRoot, folder));
+            }
         }
 
         protected override void OnInitialized()
         {
+            EnsureContentStructure();
             base.OnInitialized();
-            // Place any startup logic here if needed (e.g., reading last project root, etc.)
         }
     }
 }
