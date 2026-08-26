@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Diagnostics;
-
 using Microsoft.Xna.Framework;
-
 using GE2D3D.MapEditor.Data;
 
 namespace GE2D3D.MapEditor.Utils
@@ -23,7 +21,6 @@ namespace GE2D3D.MapEditor.Utils
             {
                 Logger.Log(LogType.Error, $"LevelLoader.Load: empty text for path '{path}'");
                 MapDiagnosticsTrace.Error("Map text is empty", "LevelLoader returned an empty level instead of throwing.");
-
                 var emptyTags = new LevelTags();
                 var emptyLevel = new LevelInfo(emptyTags, path, new LevelTags(), new List<EntityInfo>(), new List<StructureInfo>(), new List<OffsetMapInfo>(), new ShaderInfo(), new BackdropInfo());
                 MapDiagnosticsTrace.Performance("LevelLoader completed", "Elapsed=" + stopwatch.Elapsed.TotalMilliseconds.ToString("F1") + " ms");
@@ -49,12 +46,7 @@ namespace GE2D3D.MapEditor.Utils
             for (var i = 0; i < data.Length; i++)
             {
                 var line = data[i];
-                if (string.IsNullOrWhiteSpace(line))
-                {
-                    skippedLines++;
-                    continue;
-                }
-
+                if (string.IsNullOrWhiteSpace(line)) { skippedLines++; continue; }
                 if (!line.Contains("{") || !line.Contains("}"))
                 {
                     skippedLines++;
@@ -75,17 +67,16 @@ namespace GE2D3D.MapEditor.Utils
                     var afterBrace = line.Substring(firstBraceIndex + 2);
                     var lower = afterBrace.ToLowerInvariant();
                     LevelTagType tagType = LevelTagType.None;
-
-                    if (lower.StartsWith(@"structure\"")) tagType = LevelTagType.Structure;
-                    else if (lower.StartsWith(@"entity\"")) tagType = LevelTagType.Entity;
-                    else if (lower.StartsWith(@"floor\"")) tagType = LevelTagType.Floor;
-                    else if (lower.StartsWith(@"entityfield\"")) tagType = LevelTagType.EntityField;
-                    else if (lower.StartsWith(@"level\"")) tagType = LevelTagType.Level;
-                    else if (lower.StartsWith(@"actions\"")) tagType = LevelTagType.LevelActions;
-                    else if (lower.StartsWith(@"npc\"")) tagType = LevelTagType.NPC;
-                    else if (lower.StartsWith(@"shader\"")) tagType = LevelTagType.Shader;
-                    else if (lower.StartsWith(@"offsetmap\"")) tagType = LevelTagType.OffsetMap;
-                    else if (lower.StartsWith(@"backdrop\"")) tagType = LevelTagType.Backdrop;
+                    if (lower.StartsWith("structure\"")) tagType = LevelTagType.Structure;
+                    else if (lower.StartsWith("entity\"")) tagType = LevelTagType.Entity;
+                    else if (lower.StartsWith("floor\"")) tagType = LevelTagType.Floor;
+                    else if (lower.StartsWith("entityfield\"")) tagType = LevelTagType.EntityField;
+                    else if (lower.StartsWith("level\"")) tagType = LevelTagType.Level;
+                    else if (lower.StartsWith("actions\"")) tagType = LevelTagType.LevelActions;
+                    else if (lower.StartsWith("npc\"")) tagType = LevelTagType.NPC;
+                    else if (lower.StartsWith("shader\"")) tagType = LevelTagType.Shader;
+                    else if (lower.StartsWith("offsetmap\"")) tagType = LevelTagType.OffsetMap;
+                    else if (lower.StartsWith("backdrop\"")) tagType = LevelTagType.Backdrop;
 
                     if (tagType == LevelTagType.None)
                     {
@@ -127,8 +118,9 @@ namespace GE2D3D.MapEditor.Utils
                                 var addNPC = tags.TagExists("AddNPC") && tags.GetTag<bool>("AddNPC");
                                 if (!string.IsNullOrEmpty(map) && offsetArray != null && offsetArray.Length >= 3)
                                 {
-                                    structures.Add(new StructureInfo { Map = map, Offset = new Vector3(offsetArray[0], offsetArray[1], offsetArray[2]), Rotation = rotation, AddNPC = addNPC });
-                                    MapDiagnosticsTrace.Success("Structure loaded", "Map=" + map + " Offset=" + structures[structures.Count - 1].Offset);
+                                    var info = new StructureInfo { Map = map, Offset = new Vector3(offsetArray[0], offsetArray[1], offsetArray[2]), Rotation = rotation, AddNPC = addNPC };
+                                    structures.Add(info);
+                                    MapDiagnosticsTrace.Success("Structure loaded", "Map=" + map + " Offset=" + info.Offset);
                                 }
                                 else
                                 {
@@ -235,7 +227,6 @@ namespace GE2D3D.MapEditor.Utils
                             }
                             break;
                     }
-
                     list.Add(new LevelTag(tagType, tags));
                 }
                 catch (Exception ex)
@@ -248,14 +239,10 @@ namespace GE2D3D.MapEditor.Utils
 
             var levelInfo = new LevelInfo(levelTags, path, actionTags, entities, structures, offsetMaps, shader, backdrop);
             foreach (var entity in levelInfo.Entities) entity.Parent = levelInfo;
-
-            foreach (var pair in topLevelCounts.OrderBy(p => p.Key.ToString()))
-                MapDiagnosticsTrace.Info("Top-level count", pair.Key + "=" + pair.Value);
-
+            foreach (var pair in topLevelCounts.OrderBy(p => p.Key.ToString())) MapDiagnosticsTrace.Info("Top-level count", pair.Key + "=" + pair.Value);
             MapDiagnosticsTrace.Success("LevelInfo constructed", "Entities=" + levelInfo.Entities.Count + " Structures=" + structures.Count + " OffsetMaps=" + offsetMaps.Count + " NPCRecords=" + npcCount);
             MapDiagnosticsTrace.Info("Parser summary", "Skipped=" + skippedLines + " Failures=" + parseFailures + " ParsedRecords=" + list.Count);
             MapDiagnosticsTrace.Performance("LevelLoader completed", "Elapsed=" + stopwatch.Elapsed.TotalMilliseconds.ToString("F1") + " ms");
-
             Logger.Log(LogType.Info, $"LevelLoader.Load: '{path}' => {levelInfo.Entities.Count} entities, {structures.Count} structures, {offsetMaps.Count} offset maps");
             return levelInfo;
         }
@@ -280,7 +267,6 @@ namespace GE2D3D.MapEditor.Utils
         {
             var tags = new LevelTags();
             if (string.IsNullOrWhiteSpace(line)) return tags;
-
             var tagList = line.Split(new[] { "}{" }, StringSplitOptions.RemoveEmptyEntries);
             for (var i = 0; i < tagList.Length; i++)
             {
@@ -298,7 +284,6 @@ namespace GE2D3D.MapEditor.Utils
             var tagName = "";
             var tagContent = "";
             if (tag.Length < 2) return;
-
             tag = tag.Remove(0, 1);
             tag = tag.Remove(tag.Length - 1, 1);
             var idxBrace = tag.IndexOf("{", StringComparison.Ordinal);
@@ -320,13 +305,11 @@ namespace GE2D3D.MapEditor.Utils
                 row = row.Remove(0, 1);
                 var idxOpen = row.IndexOf("[", StringComparison.Ordinal);
                 if (idxOpen < 0) continue;
-
                 var subTagType = row.Remove(idxOpen);
                 var subTagValue = row.Remove(0, idxOpen + 1);
                 if (subTagValue.Length == 0) continue;
                 if (subTagValue[subTagValue.Length - 1] == ']') subTagValue = subTagValue.Remove(subTagValue.Length - 1, 1);
                 var valueString = subTagValue ?? string.Empty;
-
                 try
                 {
                     switch (subTagType.ToLowerInvariant())
@@ -337,17 +320,13 @@ namespace GE2D3D.MapEditor.Utils
                         case "bool": tags.Add(tagName, int.Parse(valueString, CultureInfo.InvariantCulture) == 1); break;
                         case "intarr": tags.Add(tagName, valueString.Split(',').Select(s => Convert.ToInt32(s, CultureInfo.InvariantCulture)).ToArray()); break;
                         case "rec":
-                            {
-                                var content = valueString.Split(',').Select(s => int.Parse(s, CultureInfo.InvariantCulture)).ToArray();
-                                if (content.Length >= 4) tags.Add(tagName, new Rectangle(content[0], content[1], content[2], content[3]));
-                                break;
-                            }
+                            var content = valueString.Split(',').Select(s => int.Parse(s, CultureInfo.InvariantCulture)).ToArray();
+                            if (content.Length >= 4) tags.Add(tagName, new Rectangle(content[0], content[1], content[2], content[3]));
+                            break;
                         case "recarr":
-                            {
-                                var recs = valueString.Split(']').Where(s => s.Length > 0).Select(s => s.TrimStart('[')).Select(s => s.Split(',')).Select(arr => arr.Select(x => int.Parse(x, CultureInfo.InvariantCulture)).ToArray()).Where(a => a.Length >= 4).Select(a => new Rectangle(a[0], a[1], a[2], a[3])).ToArray();
-                                tags.Add(tagName, recs);
-                                break;
-                            }
+                            var recs = valueString.Split(']').Where(s => s.Length > 0).Select(s => s.TrimStart('[')).Select(s => s.Split(',')).Select(arr => arr.Select(x => int.Parse(x, CultureInfo.InvariantCulture)).ToArray()).Where(a => a.Length >= 4).Select(a => new Rectangle(a[0], a[1], a[2], a[3])).ToArray();
+                            tags.Add(tagName, recs);
+                            break;
                         case "sngarr": tags.Add(tagName, valueString.Split(',').Select(s => float.Parse(s, CultureInfo.InvariantCulture)).ToArray()); break;
                         default:
                             Logger.Log(LogType.Info, $"Unknown tag type! {subTagType.ToLowerInvariant()}");
