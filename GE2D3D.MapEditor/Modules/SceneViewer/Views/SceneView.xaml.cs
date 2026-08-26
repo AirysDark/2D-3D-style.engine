@@ -7,25 +7,17 @@ using GE2D3D.MapEditor.Components.Render;
 using GE2D3D.MapEditor.Data;
 using GE2D3D.MapEditor.Modules.SceneViewer.ViewModels;
 using GE2D3D.MapEditor.Renders;
-using Microsoft.Xna.Framework;
+using XnaVector3 = Microsoft.Xna.Framework.Vector3;
 
 namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
 {
     public partial class SceneView : UserControl
     {
-        // Mouse tracking for camera controls
         private bool _isRightMouseDown;
         private Point _lastMousePos;
-
-        // Render bootstrap coming from outside (shell / module)
         private RenderBootstrap? _bootstrap;
-
-        // If a level is requested before AttachBootstrap, we cache it here
         private LevelInfo? _pendingLevel;
 
-        /// <summary>
-        /// Expose bootstrap if the ViewModel or host needs it.
-        /// </summary>
         public RenderBootstrap? Bootstrap => _bootstrap;
 
         public SceneView()
@@ -38,42 +30,27 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
         {
             Loaded -= OnLoaded;
 
-            // Hook this view into the SceneViewModel so it can call LoadLevel/RefreshFromLevel
             if (DataContext is SceneViewModel vm)
-            {
                 vm.AttachView(this);
-            }
 
-            // GameHost is defined in XAML (the element hosting the MonoGame control)
             if (GameHost != null)
             {
-                // Mouse
                 GameHost.MouseMove += ViewHost_OnMouseMove;
                 GameHost.MouseWheel += ViewHost_OnMouseWheel;
                 GameHost.MouseRightButtonDown += ViewHost_OnMouseRightButtonDown;
                 GameHost.MouseRightButtonUp += ViewHost_OnMouseRightButtonUp;
-
-                // Keyboard
                 GameHost.KeyDown += ViewHost_OnKeyDown;
                 GameHost.KeyUp += ViewHost_OnKeyUp;
-
                 GameHost.Focusable = true;
                 GameHost.Focus();
             }
         }
 
-        /// <summary>
-        /// Called by the hosting module to connect this view to the engine.
-        /// NOTE: We do NOT override DataContext here so Prism can keep the VM.
-        /// </summary>
         public void AttachBootstrap(RenderBootstrap bootstrap)
         {
             _bootstrap = bootstrap ?? throw new ArgumentNullException(nameof(bootstrap));
-
-            // Sync AA combo to current AA mode
             SyncAaComboFromSettings();
 
-            // If a level was requested before bootstrap was ready, load it now.
             if (_pendingLevel != null)
             {
                 _bootstrap.ReloadLevel(_pendingLevel);
@@ -82,16 +59,11 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
             }
         }
 
-        /// <summary>
-        /// Direct API for the host/viewmodel to load a level into the viewer.
-        /// </summary>
         public void LoadLevel(LevelInfo levelInfo)
         {
             if (levelInfo == null)
                 throw new ArgumentNullException(nameof(levelInfo));
 
-            // If bootstrap isn't ready yet, remember this level and
-            // load it once AttachBootstrap is called.
             if (_bootstrap == null)
             {
                 _pendingLevel = levelInfo;
@@ -103,16 +75,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
             SyncAaComboFromSettings();
         }
 
-        /// <summary>
-        /// Frames the loaded world from its entity extents.
-        ///
-        /// Old maps can be located hundreds or thousands of units away from the
-        /// editor's origin. Previously a successful load could therefore look
-        /// exactly like an empty viewport because the editor camera stayed where
-        /// it was. This deliberately uses Level.AllEntities rather than model
-        /// bounds so framing still works while asset/model diagnostics are being
-        /// resolved.
-        /// </summary>
         private void AutoFrameLoadedLevel()
         {
             var level = _bootstrap?.Level;
@@ -120,8 +82,8 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
             if (level == null || camera == null || level.AllEntities.Count == 0)
                 return;
 
-            var min = new Vector3(float.MaxValue);
-            var max = new Vector3(float.MinValue);
+            var min = new XnaVector3(float.MaxValue);
+            var max = new XnaVector3(float.MinValue);
             var found = false;
 
             foreach (var entity in level.AllEntities)
@@ -130,18 +92,18 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
                     continue;
 
                 var size = entity.Size;
-                if (size == Vector3.Zero)
-                    size = Vector3.One;
+                if (size == XnaVector3.Zero)
+                    size = XnaVector3.One;
 
                 var scale = entity.Scale;
-                if (scale == Vector3.Zero)
-                    scale = Vector3.One;
+                if (scale == XnaVector3.Zero)
+                    scale = XnaVector3.One;
 
-                var half = Vector3.Abs(size * scale) * 0.5f;
+                var half = XnaVector3.Abs(size * scale) * 0.5f;
                 var position = entity.Position;
 
-                min = Vector3.Min(min, position - half);
-                max = Vector3.Max(max, position + half);
+                min = XnaVector3.Min(min, position - half);
+                max = XnaVector3.Max(max, position + half);
                 found = true;
             }
 
@@ -155,90 +117,40 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
             if (float.IsNaN(radius) || float.IsInfinity(radius) || radius < 8f)
                 radius = 8f;
 
-            // A stable isometric editor view is more reliable than preserving a
-            // stale camera direction after loading a completely different map.
             var distance = radius * 2.25f;
-            camera.Position = center + new Vector3(distance, distance * 0.75f, distance);
+            camera.Position = center + new XnaVector3(distance, distance * 0.75f, distance);
             camera.Target = center;
         }
 
-        /// <summary>
-        /// Called by the ViewModel whenever LevelInfo changes.
-        /// </summary>
         public void RefreshFromLevel(LevelInfo? levelInfo)
         {
-            if (levelInfo == null)
-                return;
-
-            LoadLevel(levelInfo);
+            if (levelInfo != null)
+                LoadLevel(levelInfo);
         }
 
-        /// <summary>
-        /// Anti-aliasing combo box was removed from the toolbar. This helper is
-        /// used by the main window Toolbox → Anti-Aliasing menu to forward the
-        /// chosen mode into the renderer.
-        /// </summary>
         public void SetAntiAliasingFromMenu(AntiAliasing mode)
         {
-            if (_bootstrap == null)
-                return;
-
-            _bootstrap.SetAntiAliasing(mode);
+            _bootstrap?.SetAntiAliasing(mode);
         }
 
-        /// <summary>
-        /// Legacy method kept so existing calls from AttachBootstrap / LoadLevel
-        /// remain valid. With the AA combo removed, this becomes a no-op.
-        /// </summary>
         private void SyncAaComboFromSettings()
         {
-            // No in-view AA combo any more – AA is driven from the Toolbox menu.
         }
-
-        // ---------------------------------------------------------
-        // Toolbar handlers (wired from XAML)
-        // ---------------------------------------------------------
 
         private void OnAaChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_bootstrap == null)
-                return;
-
-            if (sender is not ComboBox combo)
-                return;
-
-            if (combo.SelectedItem is not ComboBoxItem selected)
+            if (_bootstrap == null || sender is not ComboBox combo || combo.SelectedItem is not ComboBoxItem selected)
                 return;
 
             var tag = (selected.Tag as string) ?? selected.Content?.ToString();
-            if (string.IsNullOrWhiteSpace(tag))
-                return;
-
-            if (Enum.TryParse<AntiAliasing>(tag, ignoreCase: true, out var mode))
-            {
+            if (!string.IsNullOrWhiteSpace(tag) && Enum.TryParse<AntiAliasing>(tag, true, out var mode))
                 _bootstrap.SetAntiAliasing(mode);
-            }
         }
 
-        private void OnCamPresetTop(object sender, RoutedEventArgs e)
-        {
-            _bootstrap?.CameraController?.SetPresetTop();
-        }
-
-        private void OnCamPresetFront(object sender, RoutedEventArgs e)
-        {
-            _bootstrap?.CameraController?.SetPresetFront();
-        }
-
-        private void OnCamPresetSide(object sender, RoutedEventArgs e)
-        {
-            _bootstrap?.CameraController?.SetPresetSide();
-        }
-
-        private void OnFocusSelection(object sender, RoutedEventArgs e)
-        {
-            _bootstrap?.FocusOnSelection();
-        }
+        private void OnCamPresetTop(object sender, RoutedEventArgs e) => _bootstrap?.CameraController?.SetPresetTop();
+        private void OnCamPresetFront(object sender, RoutedEventArgs e) => _bootstrap?.CameraController?.SetPresetFront();
+        private void OnCamPresetSide(object sender, RoutedEventArgs e) => _bootstrap?.CameraController?.SetPresetSide();
+        private void OnFocusSelection(object sender, RoutedEventArgs e) => _bootstrap?.FocusOnSelection();
 
         private void OnReloadLevel(object sender, RoutedEventArgs e)
         {
@@ -246,119 +158,66 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
             AutoFrameLoadedLevel();
         }
 
-        // ---------------------------------------------------------
-        // Mouse hooks (wired to GameHost grid)
-        // ---------------------------------------------------------
-
         private void ViewHost_OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (!_isRightMouseDown)
+            if (!_isRightMouseDown || _bootstrap?.CameraController == null || GameHost == null)
                 return;
 
-            if (_bootstrap?.CameraController == null)
-                return;
-
-            var host = GameHost;
-            if (host == null)
-                return;
-
-            var pos = e.GetPosition(host);
+            var pos = e.GetPosition(GameHost);
             var delta = pos - _lastMousePos;
-
-            _bootstrap.CameraController.OnMouseDrag(
-                (float)delta.X,
-                (float)delta.Y,
-                rightButtonDown: true);
-
+            _bootstrap.CameraController.OnMouseDrag((float)delta.X, (float)delta.Y, true);
             _lastMousePos = pos;
         }
 
         private void ViewHost_OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (_bootstrap?.CameraController == null)
-                return;
-
-            _bootstrap.CameraController.OnMouseWheel(e.Delta);
+            _bootstrap?.CameraController?.OnMouseWheel(e.Delta);
         }
 
         private void ViewHost_OnMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             _isRightMouseDown = true;
-
-            var host = GameHost;
-            if (host == null)
+            if (GameHost == null)
                 return;
 
-            _lastMousePos = e.GetPosition(host);
-
-            Mouse.Capture(host);
-
-            if (!host.IsKeyboardFocusWithin)
-            {
-                host.Focus();
-            }
+            _lastMousePos = e.GetPosition(GameHost);
+            Mouse.Capture(GameHost);
+            if (!GameHost.IsKeyboardFocusWithin)
+                GameHost.Focus();
         }
 
         private void ViewHost_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             _isRightMouseDown = false;
             Mouse.Capture(null);
-
             _bootstrap?.CameraController?.EndDrag();
         }
 
-        // ---------------------------------------------------------
-        // Keyboard hooks (WASD / QE, etc.)
-        // ---------------------------------------------------------
-
-        private void ViewHost_OnKeyDown(object sender, KeyEventArgs e)
-        {
-            _bootstrap?.CameraController?.OnKeyDown(e.Key);
-        }
-
-        private void ViewHost_OnKeyUp(object sender, KeyEventArgs e)
-        {
-            _bootstrap?.CameraController?.OnKeyUp(e.Key);
-        }
-
-        // ---------------------------------------------------------
-        // Layer toggles + volumes/triggers (wired from XAML)
-        // ---------------------------------------------------------
+        private void ViewHost_OnKeyDown(object sender, KeyEventArgs e) => _bootstrap?.CameraController?.OnKeyDown(e.Key);
+        private void ViewHost_OnKeyUp(object sender, KeyEventArgs e) => _bootstrap?.CameraController?.OnKeyUp(e.Key);
 
         private void OnToggleCollisionLayer(object sender, RoutedEventArgs e)
         {
-            if (_bootstrap == null)
-                return;
-
-            var isChecked = (sender as CheckBox)?.IsChecked == true;
-            _bootstrap.SetLayerVisible(SceneLayer.Collision, isChecked);
+            if (_bootstrap != null)
+                _bootstrap.SetLayerVisible(SceneLayer.Collision, (sender as CheckBox)?.IsChecked == true);
         }
 
         private void OnTogglePropsLayer(object sender, RoutedEventArgs e)
         {
-            if (_bootstrap == null)
-                return;
-
-            var isChecked = (sender as CheckBox)?.IsChecked == true;
-            _bootstrap.SetLayerVisible(SceneLayer.Props, isChecked);
+            if (_bootstrap != null)
+                _bootstrap.SetLayerVisible(SceneLayer.Props, (sender as CheckBox)?.IsChecked == true);
         }
 
         private void OnToggleLightsLayer(object sender, RoutedEventArgs e)
         {
-            if (_bootstrap == null)
-                return;
-
-            var isChecked = (sender as CheckBox)?.IsChecked == true;
-            _bootstrap.SetLayerVisible(SceneLayer.Lights, isChecked);
+            if (_bootstrap != null)
+                _bootstrap.SetLayerVisible(SceneLayer.Lights, (sender as CheckBox)?.IsChecked == true);
         }
 
         private void OnToggleTriggersLayer(object sender, RoutedEventArgs e)
         {
-            if (_bootstrap == null)
-                return;
-
-            var isChecked = (sender as CheckBox)?.IsChecked == true;
-            _bootstrap.SetLayerVisible(SceneLayer.Triggers, isChecked);
+            if (_bootstrap != null)
+                _bootstrap.SetLayerVisible(SceneLayer.Triggers, (sender as CheckBox)?.IsChecked == true);
         }
     }
 }
