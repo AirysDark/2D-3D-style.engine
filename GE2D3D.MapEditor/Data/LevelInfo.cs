@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace GE2D3D.MapEditor.Data
@@ -27,13 +27,12 @@ namespace GE2D3D.MapEditor.Data
         public string SurfingBattleMapData { get; set; }
 
         public List<EntityInfo> Entities { get; }
-        public List<EntityNPCInfo> NPCs { get; }
         public List<StructureInfo> Structures { get; }
         public List<OffsetMapInfo> OffsetMaps { get; }
         public ShaderInfo Shader { get; }
         public BackdropInfo Backdrop { get; }
-        public string Path { get; }
 
+        public string Path { get; }
         public string DirectoryLocation => System.IO.Path.GetDirectoryName(Path) ?? string.Empty;
 
         public string ContentRoot
@@ -44,10 +43,7 @@ namespace GE2D3D.MapEditor.Data
                 var mapsDirectory = mapDirectory;
                 var dataDirectory = mapsDirectory.Parent;
                 var contentDirectory = dataDirectory?.Parent;
-                if (mapsDirectory.Name.Equals("maps", System.StringComparison.OrdinalIgnoreCase) &&
-                    dataDirectory != null && dataDirectory.Name.Equals("Data", System.StringComparison.OrdinalIgnoreCase) &&
-                    contentDirectory != null && contentDirectory.Name.Equals("Content", System.StringComparison.OrdinalIgnoreCase))
-                    return contentDirectory.FullName;
+                if (mapsDirectory.Name.Equals("maps", System.StringComparison.OrdinalIgnoreCase) && dataDirectory != null && dataDirectory.Name.Equals("Data", System.StringComparison.OrdinalIgnoreCase) && contentDirectory != null && contentDirectory.Name.Equals("Content", System.StringComparison.OrdinalIgnoreCase)) return contentDirectory.FullName;
                 return DirectoryLocation;
             }
         }
@@ -73,7 +69,7 @@ namespace GE2D3D.MapEditor.Data
             }
         }
 
-        public LevelInfo(LevelTags levelTags, string path, LevelTags actionTags, List<EntityInfo> entities, List<EntityNPCInfo> npcs, List<StructureInfo> structures, List<OffsetMapInfo> offsetMaps, ShaderInfo shader, BackdropInfo backdrop)
+        public LevelInfo(LevelTags levelTags, string path, LevelTags actionTags, List<EntityInfo> entities, List<StructureInfo> structures, List<OffsetMapInfo> offsetMaps, ShaderInfo shader, BackdropInfo backdrop)
         {
             Name = levelTags.GetTag<string>("Name");
             MusicLoop = levelTags.GetTag<string>("MusicLoop");
@@ -96,7 +92,6 @@ namespace GE2D3D.MapEditor.Data
             BattleMapData = actionTags.TagExists("BattleMap") ? actionTags.GetTag<string>("BattleMap") : "";
             SurfingBattleMapData = actionTags.TagExists("SurfingBattleMap") ? actionTags.GetTag<string>("SurfingBattleMap") : "";
             Entities = entities;
-            NPCs = npcs;
             Structures = structures;
             OffsetMaps = offsetMaps;
             Shader = shader;
