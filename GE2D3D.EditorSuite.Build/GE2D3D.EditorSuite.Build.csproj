@@ -19,4 +19,28 @@
     <ProjectReference Include="..\Prism.Modules.D3D\Prism.Modules.D3D.csproj" />
   </ItemGroup>
 
+  <!-- The Editor Suite build folder is the assembled runtime root. -->
+  <Target Name="CreateEditorSuiteContentLayout" AfterTargets="Build">
+    <PropertyGroup>
+      <SuiteContentRoot>$(MSBuildProjectDirectory)\Content</SuiteContentRoot>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(SuiteContentRoot)" />
+    <MakeDir Directories="$(SuiteContentRoot)\Data" />
+    <MakeDir Directories="$(SuiteContentRoot)\Data\maps" />
+    <MakeDir Directories="$(SuiteContentRoot)\Data\Scripts" />
+    <MakeDir Directories="$(SuiteContentRoot)\Data\Items" />
+    <MakeDir Directories="$(SuiteContentRoot)\Data\Moves" />
+    <MakeDir Directories="$(SuiteContentRoot)\Data\Types" />
+    <MakeDir Directories="$(SuiteContentRoot)\Effects" />
+    <MakeDir Directories="$(SuiteContentRoot)\GUI" />
+    <MakeDir Directories="$(SuiteContentRoot)\Items" />
+    <MakeDir Directories="$(SuiteContentRoot)\Localization" />
+    <MakeDir Directories="$(SuiteContentRoot)\Pokemon" />
+    <MakeDir Directories="$(SuiteContentRoot)\SkyDomeResource" />
+    <MakeDir Directories="$(SuiteContentRoot)\Songs" />
+    <MakeDir Directories="$(SuiteContentRoot)\Sounds" />
+    <MakeDir Directories="$(SuiteContentRoot)\Textures" />
+  </Target>
+
 </Project>
