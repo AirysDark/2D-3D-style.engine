@@ -11,127 +11,71 @@
         WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
 
-        <!-- Main menu -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-
-                <MenuItem Header="_New"
-                          Command="{Binding NewLevelCommand}" />
-
-                <MenuItem Header="_Open..."
-                          Command="{Binding OpenLevelCommand}" />
-
-                <MenuItem Header="_Save"
-                          Command="{Binding SaveLevelCommand}" />
-
+                <MenuItem Header="_New" Command="{Binding NewLevelCommand}" />
+                <MenuItem Header="_Open..." Command="{Binding OpenLevelCommand}" />
+                <MenuItem Header="_Save" Command="{Binding SaveLevelCommand}" />
                 <Separator/>
-
-                <MenuItem Header="E_xit"
-                          Click="OnExitClick" />
+                <MenuItem Header="E_xit" Click="OnExitClick" />
             </MenuItem>
 
             <MenuItem Header="_Toolbox">
-
-                <!-- Skybox submenu -->
                 <MenuItem Header="_Skybox">
-                    <MenuItem Header="Skybox _Inner..."
-                              Command="{Binding ChooseSkyboxInnerTextureCommand}" />
-                    <MenuItem Header="Skybox _Outer..."
-                              Command="{Binding ChooseSkyboxOuterTextureCommand}" />
+                    <MenuItem Header="Skybox _Inner..." Command="{Binding ChooseSkyboxInnerTextureCommand}" />
+                    <MenuItem Header="Skybox _Outer..." Command="{Binding ChooseSkyboxOuterTextureCommand}" />
                 </MenuItem>
-
                 <Separator/>
-
-                <!-- Tool windows -->
-                <MenuItem Header="_Camera Path"
-                          Click="OnCameraPathMenuClick" />
-                <MenuItem Header="_Selection"
-                          Click="OnSelectionMenuClick" />
-                <MenuItem Header="_Entities"
-                          Click="OnEntitiesMenuClick" />
-                <MenuItem Header="_Assets"
-                          Click="OnAssetsMenuClick" />
-
+                <MenuItem Header="_Camera Path" Click="OnCameraPathMenuClick" />
+                <MenuItem Header="_Selection" Click="OnSelectionMenuClick" />
+                <MenuItem Header="_Entities" Click="OnEntitiesMenuClick" />
+                <MenuItem Header="_Assets" Click="OnAssetsMenuClick" />
                 <Separator/>
-
-                <!-- RenderTest submenu -->
                 <MenuItem Header="_Render Test">
-                    <MenuItem Header="_Run With Last Loaded Map"
-                              Click="OnRenderTestRunLastMapClick" />
-                    <MenuItem Header="_Open Map and Run..."
-                              Click="OnRenderTestOpenAndRunClick" />
+                    <MenuItem Header="_Run With Last Loaded Map" Click="OnRenderTestRunLastMapClick" />
+                    <MenuItem Header="_Open Map and Run..." Click="OnRenderTestOpenAndRunClick" />
                 </MenuItem>
-
                 <Separator/>
-
-                <!-- Layers submenu -->
                 <MenuItem Header="_Layers">
-                    <MenuItem Header="_Geometry"
-                              IsCheckable="True"
-                              IsChecked="{Binding ShowGeometry, Mode=TwoWay}" />
-                    <MenuItem Header="_Grid"
-                              IsCheckable="True"
-                              IsChecked="{Binding ShowGrid, Mode=TwoWay}" />
-                    <MenuItem Header="_Collision"
-                              IsCheckable="True"
-                              IsChecked="{Binding ShowCollision, Mode=TwoWay}" />
-                    <MenuItem Header="_Props"
-                              IsCheckable="True"
-                              IsChecked="{Binding ShowProps, Mode=TwoWay}" />
-                    <MenuItem Header="_Lights"
-                              IsCheckable="True"
-                              IsChecked="{Binding ShowLights, Mode=TwoWay}" />
-                    <MenuItem Header="_Triggers"
-                              IsCheckable="True"
-                              IsChecked="{Binding ShowTriggers, Mode=TwoWay}" />
+                    <MenuItem Header="_Geometry" IsCheckable="True" IsChecked="{Binding ShowGeometry, Mode=TwoWay}" />
+                    <MenuItem Header="_Grid" IsCheckable="True" IsChecked="{Binding ShowGrid, Mode=TwoWay}" />
+                    <MenuItem Header="_Collision" IsCheckable="True" IsChecked="{Binding ShowCollision, Mode=TwoWay}" />
+                    <MenuItem Header="_Props" IsCheckable="True" IsChecked="{Binding ShowProps, Mode=TwoWay}" />
+                    <MenuItem Header="_Lights" IsCheckable="True" IsChecked="{Binding ShowLights, Mode=TwoWay}" />
+                    <MenuItem Header="_Triggers" IsCheckable="True" IsChecked="{Binding ShowTriggers, Mode=TwoWay}" />
                 </MenuItem>
-
                 <Separator/>
-
-                <!-- Anti-aliasing submenu -->
                 <MenuItem Header="_Anti-Aliasing">
-                    <MenuItem Header="_None"
-                              Tag="None"
-                              IsCheckable="True"
-                              Click="OnAAModeMenuClick" />
-                    <MenuItem Header="_FXAA"
-                              Tag="FXAA"
-                              IsCheckable="True"
-                              Click="OnAAModeMenuClick" />
-                    <MenuItem Header="_MSAA"
-                              Tag="MSAA"
-                              IsCheckable="True"
-                              Click="OnAAModeMenuClick" />
-                    <MenuItem Header="_SSAA"
-                              Tag="SSAA"
-                              IsCheckable="True"
-                              Click="OnAAModeMenuClick" />
+                    <MenuItem Header="_None" Tag="None" IsCheckable="True" Click="OnAAModeMenuClick" />
+                    <MenuItem Header="_FXAA" Tag="FXAA" IsCheckable="True" Click="OnAAModeMenuClick" />
+                    <MenuItem Header="_MSAA" Tag="MSAA" IsCheckable="True" Click="OnAAModeMenuClick" />
+                    <MenuItem Header="_SSAA" Tag="SSAA" IsCheckable="True" Click="OnAAModeMenuClick" />
                 </MenuItem>
-
             </MenuItem>
         </Menu>
 
-        <!-- Status bar with camera / selection / message -->
         <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem>
-                <TextBlock Text="{Binding StatusCameraText}"
-                           Margin="4,0"
-                           VerticalAlignment="Center" />
-            </StatusBarItem>
-            <StatusBarItem>
-                <TextBlock Text="{Binding StatusSelectionText}"
-                           Margin="4,0"
-                           VerticalAlignment="Center" />
-            </StatusBarItem>
-            <StatusBarItem HorizontalAlignment="Right">
-                <TextBlock Text="{Binding StatusMessage}"
-                           Margin="4,0"
-                           VerticalAlignment="Center" />
-            </StatusBarItem>
+            <StatusBarItem><TextBlock Text="{Binding StatusCameraText}" Margin="4,0" VerticalAlignment="Center" /></StatusBarItem>
+            <StatusBarItem><TextBlock Text="{Binding StatusSelectionText}" Margin="4,0" VerticalAlignment="Center" /></StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right"><TextBlock Text="{Binding StatusMessage}" Margin="4,0" VerticalAlignment="Center" /></StatusBarItem>
         </StatusBar>
 
-        <!-- 3D Scene: inherits the same DataContext (SceneViewModel) -->
-        <views:SceneView x:Name="SceneViewControl" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="190" />
+            </Grid.RowDefinitions>
 
+            <views:SceneView x:Name="SceneViewControl" Grid.Row="0" />
+
+            <Border Grid.Row="1" BorderThickness="1" BorderBrush="Gray" Background="#1E1E1E" Padding="6">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Diagnostics / Map Load Log" Foreground="White" FontWeight="Bold" Margin="0,0,0,4" />
+                    <TextBox x:Name="DiagnosticsTextBox" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                             Background="#111111" Foreground="White" BorderThickness="0" FontFamily="Consolas" />
+                </DockPanel>
+            </Border>
+        </Grid>
     </DockPanel>
 </Window>
