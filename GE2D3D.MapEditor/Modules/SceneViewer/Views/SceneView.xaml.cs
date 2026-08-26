@@ -7,6 +7,7 @@ using GE2D3D.MapEditor.Components.Render;
 using GE2D3D.MapEditor.Data;
 using GE2D3D.MapEditor.Modules.SceneViewer.ViewModels;
 using GE2D3D.MapEditor.Renders;
+using Microsoft.Xna.Framework;
 
 namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
 {
@@ -76,6 +77,7 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
             if (_pendingLevel != null)
             {
                 _bootstrap.ReloadLevel(_pendingLevel);
+                AutoFrameLoadedLevel();
                 _pendingLevel = null;
             }
         }
@@ -97,7 +99,67 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
             }
 
             _bootstrap.ReloadLevel(levelInfo);
+            AutoFrameLoadedLevel();
             SyncAaComboFromSettings();
+        }
+
+        /// <summary>
+        /// Frames the loaded world from its entity extents.
+        ///
+        /// Old maps can be located hundreds or thousands of units away from the
+        /// editor's origin. Previously a successful load could therefore look
+        /// exactly like an empty viewport because the editor camera stayed where
+        /// it was. This deliberately uses Level.AllEntities rather than model
+        /// bounds so framing still works while asset/model diagnostics are being
+        /// resolved.
+        /// </summary>
+        private void AutoFrameLoadedLevel()
+        {
+            var level = _bootstrap?.Level;
+            var camera = _bootstrap?.Camera;
+            if (level == null || camera == null || level.AllEntities.Count == 0)
+                return;
+
+            var min = new Vector3(float.MaxValue);
+            var max = new Vector3(float.MinValue);
+            var found = false;
+
+            foreach (var entity in level.AllEntities)
+            {
+                if (entity == null)
+                    continue;
+
+                var size = entity.Size;
+                if (size == Vector3.Zero)
+                    size = Vector3.One;
+
+                var scale = entity.Scale;
+                if (scale == Vector3.Zero)
+                    scale = Vector3.One;
+
+                var half = Vector3.Abs(size * scale) * 0.5f;
+                var position = entity.Position;
+
+                min = Vector3.Min(min, position - half);
+                max = Vector3.Max(max, position + half);
+                found = true;
+            }
+
+            if (!found)
+                return;
+
+            var center = (min + max) * 0.5f;
+            var extents = max - min;
+            var radius = extents.Length() * 0.5f;
+
+            if (float.IsNaN(radius) || float.IsInfinity(radius) || radius < 8f)
+                radius = 8f;
+
+            // A stable isometric editor view is more reliable than preserving a
+            // stale camera direction after loading a completely different map.
+            var distance = radius * 2.25f;
+            camera.Position = center + new Vector3(distance, distance * 0.75f, distance);
+            camera.Target = center;
         }
 
         /// <summary>
@@ -111,7 +173,7 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
             LoadLevel(levelInfo);
         }
 
-                /// <summary>
+        /// <summary>
         /// Anti-aliasing combo box was removed from the toolbar. This helper is
         /// used by the main window Toolbox → Anti-Aliasing menu to forward the
         /// chosen mode into the renderer.
@@ -132,7 +194,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
         {
             // No in-view AA combo any more – AA is driven from the Toolbox menu.
         }
-
 
         // ---------------------------------------------------------
         // Toolbar handlers (wired from XAML)
@@ -182,6 +243,7 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
         private void OnReloadLevel(object sender, RoutedEventArgs e)
         {
             _bootstrap?.ReloadLevel();
+            AutoFrameLoadedLevel();
         }
 
         // ---------------------------------------------------------
@@ -269,8 +331,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
                 return;
 
             var isChecked = (sender as CheckBox)?.IsChecked == true;
-
-            // Adjust enum / API name to match your RenderBootstrap
             _bootstrap.SetLayerVisible(SceneLayer.Collision, isChecked);
         }
 
@@ -299,9 +359,6 @@ namespace GE2D3D.MapEditor.Modules.SceneViewer.Views
 
             var isChecked = (sender as CheckBox)?.IsChecked == true;
             _bootstrap.SetLayerVisible(SceneLayer.Triggers, isChecked);
-
-            // If you have a separate "debug volumes" visualization, hook that here too:
-            // _bootstrap.SetTriggerVolumesVisible(isChecked);
         }
     }
 }
