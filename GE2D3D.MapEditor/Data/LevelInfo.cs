@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace GE2D3D.MapEditor.Data
 {
@@ -18,12 +19,10 @@ namespace GE2D3D.MapEditor.Data
         public int WeatherType { get; set; }
         public int LightingType { get; set; }
         public bool IsDark { get; set; }
-        // Terrain shit
         public bool IsSafariZone { get; set; }
         public bool IsBugCatchingContest { get; set; }
         public string BugCatchingContestData { get; set; }
         public string MapScript { get; set; }
-        // Radio shit
         public string BattleMapData { get; set; }
         public string SurfingBattleMapData { get; set; }
 
@@ -34,9 +33,71 @@ namespace GE2D3D.MapEditor.Data
         public BackdropInfo Backdrop { get; }
 
         public string Path { get; }
-        public string DirectoryLocation => Path.Replace(System.IO.Path.GetFileName(Path), "");
-        public string TexturesLocation => System.IO.Path.Combine(DirectoryLocation, "Textures");
-        public string StructuresLocation => System.IO.Path.Combine(DirectoryLocation, "Structures");
+
+        /// <summary>Folder containing the loaded map file.</summary>
+        public string DirectoryLocation => System.IO.Path.GetDirectoryName(Path) ?? string.Empty;
+
+        /// <summary>
+        /// Detects the P3D Content root when a map lives under Content/Data/maps.
+        /// Falls back to the map folder when the map is not in a P3D layout.
+        /// </summary>
+        public string ContentRoot
+        {
+            get
+            {
+                var mapDirectory = new DirectoryInfo(DirectoryLocation);
+                var mapsDirectory = mapDirectory;
+                var dataDirectory = mapsDirectory.Parent;
+                var contentDirectory = dataDirectory?.Parent;
+
+                if (mapsDirectory.Name.Equals("maps", System.StringComparison.OrdinalIgnoreCase) &&
+                    dataDirectory != null && dataDirectory.Name.Equals("Data", System.StringComparison.OrdinalIgnoreCase) &&
+                    contentDirectory != null && contentDirectory.Name.Equals("Content", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    return contentDirectory.FullName;
+                }
+
+                return DirectoryLocation;
+            }
+        }
+
+        /// <summary>
+        /// P3D textures live at Content/Textures. For non-P3D projects this preserves
+        /// the previous map-local Textures fallback.
+        /// </summary>
+        public string TexturesLocation
+        {
+            get
+            {
+                var p3dTextures = System.IO.Path.Combine(ContentRoot, "Textures");
+                if (Directory.Exists(p3dTextures))
+                    return p3dTextures;
+
+                return System.IO.Path.Combine(DirectoryLocation, "Textures");
+            }
+        }
+
+        /// <summary>
+        /// P3D map companion files normally live in a folder named after the map:
+        /// Content/Data/maps/BarkTown.dat -> Content/Data/maps/BarkTown/.
+        /// Older flat layouts can still use a Structures folder beside the map.
+        /// </summary>
+        public string StructuresLocation
+        {
+            get
+            {
+                var mapName = System.IO.Path.GetFileNameWithoutExtension(Path);
+                var mapCompanionFolder = System.IO.Path.Combine(DirectoryLocation, mapName);
+                if (Directory.Exists(mapCompanionFolder))
+                    return mapCompanionFolder;
+
+                var structuresFolder = System.IO.Path.Combine(DirectoryLocation, "Structures");
+                if (Directory.Exists(structuresFolder))
+                    return structuresFolder;
+
+                return DirectoryLocation;
+            }
+        }
 
         public LevelInfo(LevelTags levelTags, string path, LevelTags actionTags, List<EntityInfo> entities, List<StructureInfo> structures, List<OffsetMapInfo> offsetMaps, ShaderInfo shader, BackdropInfo backdrop)
         {
@@ -47,7 +108,6 @@ namespace GE2D3D.MapEditor.Data
             CurrentRegion = levelTags.TagExists("CurrentRegion") ? levelTags.GetTag<string>("CurrentRegion") : "Johto";
             HiddenAbilityChance = levelTags.TagExists("HiddenAbility") ? levelTags.GetTag<int>("HiddenAbility") : 0;
 
-
             CanTeleport = actionTags.TagExists("CanTeleport") && actionTags.GetTag<bool>("CanTeleport");
             CanDig = actionTags.TagExists("CanDig") && actionTags.GetTag<bool>("CanDig");
             CanFly = actionTags.TagExists("CanFly") && actionTags.GetTag<bool>("CanFly");
@@ -55,7 +115,6 @@ namespace GE2D3D.MapEditor.Data
             EnvironmentType = actionTags.TagExists("EnviromentType") ? actionTags.GetTag<int>("EnviromentType") : 0;
             WeatherType = actionTags.TagExists("Weather") ? actionTags.GetTag<int>("Weather") : 0;
 
-            //It's not my fault I swear. The keyboard was slippy, I was partly sick and there was fog on the road and I couldnt see.
             var lightningExists = actionTags.TagExists("Lightning");
             var lightingExists = actionTags.TagExists("Lighting");
             if (lightningExists && lightingExists)
@@ -68,12 +127,6 @@ namespace GE2D3D.MapEditor.Data
                 LightingType = 1;
 
             IsDark = actionTags.TagExists("IsDark") && actionTags.GetTag<bool>("IsDark");
-
-            //if (actionTags.TagExists("Terrain"))
-            //    Terrain.TerrainType = Terrain.FromString(actionTags.GetTag<string>("Terrain"));
-            //else
-            //    Terrain.TerrainType = TerrainTypeEnums.Plain;
-
             IsSafariZone = actionTags.TagExists("IsSafariZone") && actionTags.GetTag<bool>("IsSafariZone");
 
             if (actionTags.TagExists("BugCatchingContest"))
@@ -88,14 +141,6 @@ namespace GE2D3D.MapEditor.Data
             }
 
             MapScript = actionTags.TagExists("MapScript") ? actionTags.GetTag<string>("MapScript") : "";
-
-            // TODO
-            //if (actionTags.TagExists("RadioChannels"))
-            //    foreach (var c in actionTags.GetTag<string>("RadioChannels").Split(Convert.ToChar(",")))
-            //        AllowedRadioChannels.Add(Convert.ToDecimal(c.Replace(".", GameController.DecSeparator)));
-            //else
-            //    AllowedRadioChannels.Clear();
-
             BattleMapData = actionTags.TagExists("BattleMap") ? actionTags.GetTag<string>("BattleMap") : "";
             SurfingBattleMapData = actionTags.TagExists("SurfingBattleMap") ? actionTags.GetTag<string>("SurfingBattleMap") : "";
 
@@ -104,7 +149,6 @@ namespace GE2D3D.MapEditor.Data
             OffsetMaps = offsetMaps;
             Shader = shader;
             Backdrop = backdrop;
-
             Path = path;
         }
 
