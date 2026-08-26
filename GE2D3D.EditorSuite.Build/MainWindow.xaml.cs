@@ -12,7 +12,9 @@ namespace GE2D3D.EditorSuite
             InitializeComponent();
         }
 
-        private string OutputDirectory => AppContext.BaseDirectory;
+        // Use AppDomain rather than AppContext so this launcher builds cleanly
+        // with the current project's target/runtime configuration.
+        private string OutputDirectory => AppDomain.CurrentDomain.BaseDirectory;
 
         private void OpenMapEditor_Click(object sender, RoutedEventArgs e)
         {
