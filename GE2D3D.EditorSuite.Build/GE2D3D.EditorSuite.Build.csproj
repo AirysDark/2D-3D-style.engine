@@ -19,14 +19,13 @@
     <ProjectReference Include="..\Prism.Modules.D3D\Prism.Modules.D3D.csproj" />
   </ItemGroup>
 
-  <!-- The Editor Suite build folder is the assembled runtime root. -->
+  <!-- Create the runtime Content layout beside the built EditorSuite executable. -->
   <Target Name="CreateEditorSuiteContentLayout" AfterTargets="Build">
     <PropertyGroup>
-      <SuiteContentRoot>$(MSBuildProjectDirectory)\Content</SuiteContentRoot>
+      <SuiteContentRoot>$(TargetDir)Content</SuiteContentRoot>
     </PropertyGroup>
 
     <MakeDir Directories="$(SuiteContentRoot)" />
-    <MakeDir Directories="$(SuiteContentRoot)\Data" />
     <MakeDir Directories="$(SuiteContentRoot)\Data\maps" />
     <MakeDir Directories="$(SuiteContentRoot)\Data\Scripts" />
     <MakeDir Directories="$(SuiteContentRoot)\Data\Items" />
@@ -41,6 +40,8 @@
     <MakeDir Directories="$(SuiteContentRoot)\Songs" />
     <MakeDir Directories="$(SuiteContentRoot)\Sounds" />
     <MakeDir Directories="$(SuiteContentRoot)\Textures" />
+
+    <Message Importance="high" Text="GE2D3D EditorSuite Content created at: $(SuiteContentRoot)" />
   </Target>
 
 </Project>
